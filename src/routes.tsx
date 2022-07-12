@@ -21,7 +21,7 @@ const routes = [
   },
   {
     path: '/',
-    element: <MainLayout />,
+    element: <DashboardLayout />,
     children: [
       { path: 'login', element: <LoginView /> },
       { path: 'register', element: <RegisterView /> },
