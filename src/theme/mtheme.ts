@@ -266,15 +266,6 @@ const components: Components<Theme> = {
       },
     },
   },
-  MuiInput: {
-    styleOverrides: {
-      root: {        
-        ':before': {
-          visibility: 'hidden!important',
-        },
-      },
-    }
-  },
   MuiPagination: {
     defaultProps: {
       variant: 'outlined',
