@@ -14,7 +14,26 @@ export type Scalars = {
   Int: number;
   Float: number;
   date: any;
+  timestamptz: any;
   uuid: any;
+};
+
+export type Boolean_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
+export type Boolean_Comparison_Exp = {
+  _cast?: InputMaybe<Boolean_Cast_Exp>;
+  _eq?: InputMaybe<Scalars['Boolean']>;
+  _gt?: InputMaybe<Scalars['Boolean']>;
+  _gte?: InputMaybe<Scalars['Boolean']>;
+  _in?: InputMaybe<Array<Scalars['Boolean']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['Boolean']>;
+  _lte?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<Scalars['Boolean']>;
+  _nin?: InputMaybe<Array<Scalars['Boolean']>>;
 };
 
 export type Int_Cast_Exp = {
@@ -280,6 +299,10 @@ export type Date_Comparison_Exp = {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
+  /** delete single row from the table: "testTable" */
+  deleteTestTabl?: Maybe<TestTable>;
+  /** delete data from the table: "testTable" */
+  deleteTestTable?: Maybe<TestTable_Mutation_Response>;
   /** delete data from the table: "customers" */
   delete_customers?: Maybe<Customers_Mutation_Response>;
   /** delete single row from the table: "customers" */
@@ -296,6 +319,10 @@ export type Mutation_Root = {
   delete_products?: Maybe<Products_Mutation_Response>;
   /** delete single row from the table: "products" */
   delete_products_by_pk?: Maybe<Products>;
+  /** insert a single row into the table: "testTable" */
+  insertTestTabl?: Maybe<TestTable>;
+  /** insert data into the table: "testTable" */
+  insertTestTable?: Maybe<TestTable_Mutation_Response>;
   /** insert data into the table: "customers" */
   insert_customers?: Maybe<Customers_Mutation_Response>;
   /** insert a single row into the table: "customers" */
@@ -312,6 +339,10 @@ export type Mutation_Root = {
   insert_products?: Maybe<Products_Mutation_Response>;
   /** insert a single row into the table: "products" */
   insert_products_one?: Maybe<Products>;
+  /** update single row of the table: "testTable" */
+  updateTestTabl?: Maybe<TestTable>;
+  /** update data of the table: "testTable" */
+  updateTestTable?: Maybe<TestTable_Mutation_Response>;
   /** update data of the table: "customers" */
   update_customers?: Maybe<Customers_Mutation_Response>;
   /** update single row of the table: "customers" */
@@ -328,6 +359,18 @@ export type Mutation_Root = {
   update_products?: Maybe<Products_Mutation_Response>;
   /** update single row of the table: "products" */
   update_products_by_pk?: Maybe<Products>;
+};
+
+
+/** mutation root */
+export type Mutation_RootDeleteTestTablArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDeleteTestTableArgs = {
+  where: TestTable_Bool_Exp;
 };
 
 
@@ -376,6 +419,20 @@ export type Mutation_RootDelete_ProductsArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Products_By_PkArgs = {
   id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootInsertTestTablArgs = {
+  object: TestTable_Insert_Input;
+  on_conflict?: InputMaybe<TestTable_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsertTestTableArgs = {
+  objects: Array<TestTable_Insert_Input>;
+  on_conflict?: InputMaybe<TestTable_On_Conflict>;
 };
 
 
@@ -432,6 +489,20 @@ export type Mutation_RootInsert_ProductsArgs = {
 export type Mutation_RootInsert_Products_OneArgs = {
   object: Products_Insert_Input;
   on_conflict?: InputMaybe<Products_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdateTestTablArgs = {
+  _set?: InputMaybe<TestTable_Set_Input>;
+  pk_columns: TestTable_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdateTestTableArgs = {
+  _set?: InputMaybe<TestTable_Set_Input>;
+  where: TestTable_Bool_Exp;
 };
 
 
@@ -519,6 +590,8 @@ export type Order_Items = {
   order: Orders;
   orderId: Scalars['uuid'];
   price: Scalars['Int'];
+  /** An object relationship */
+  product: Products;
   productId: Scalars['uuid'];
   quantity: Scalars['Int'];
 };
@@ -598,6 +671,7 @@ export type Order_Items_Bool_Exp = {
   order?: InputMaybe<Orders_Bool_Exp>;
   orderId?: InputMaybe<Uuid_Comparison_Exp>;
   price?: InputMaybe<Int_Comparison_Exp>;
+  product?: InputMaybe<Products_Bool_Exp>;
   productId?: InputMaybe<Uuid_Comparison_Exp>;
   quantity?: InputMaybe<Int_Comparison_Exp>;
 };
@@ -621,6 +695,7 @@ export type Order_Items_Insert_Input = {
   order?: InputMaybe<Orders_Obj_Rel_Insert_Input>;
   orderId?: InputMaybe<Scalars['uuid']>;
   price?: InputMaybe<Scalars['Int']>;
+  product?: InputMaybe<Products_Obj_Rel_Insert_Input>;
   productId?: InputMaybe<Scalars['uuid']>;
   quantity?: InputMaybe<Scalars['Int']>;
 };
@@ -690,6 +765,7 @@ export type Order_Items_Order_By = {
   order?: InputMaybe<Orders_Order_By>;
   orderId?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
+  product?: InputMaybe<Products_Order_By>;
   productId?: InputMaybe<Order_By>;
   quantity?: InputMaybe<Order_By>;
 };
@@ -1054,8 +1130,32 @@ export type Products = {
   __typename?: 'products';
   id: Scalars['uuid'];
   name: Scalars['String'];
+  /** An array relationship */
+  orderItems: Array<Order_Items>;
+  /** An aggregate relationship */
+  orderItems_aggregate: Order_Items_Aggregate;
   price: Scalars['Int'];
   quantity: Scalars['Int'];
+};
+
+
+/** Types of products */
+export type ProductsOrderItemsArgs = {
+  distinct_on?: InputMaybe<Array<Order_Items_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Order_Items_Order_By>>;
+  where?: InputMaybe<Order_Items_Bool_Exp>;
+};
+
+
+/** Types of products */
+export type ProductsOrderItems_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Order_Items_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Order_Items_Order_By>>;
+  where?: InputMaybe<Order_Items_Bool_Exp>;
 };
 
 /** aggregated selection of "products" */
@@ -1102,6 +1202,7 @@ export type Products_Bool_Exp = {
   _or?: InputMaybe<Array<Products_Bool_Exp>>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
+  orderItems?: InputMaybe<Order_Items_Bool_Exp>;
   price?: InputMaybe<Int_Comparison_Exp>;
   quantity?: InputMaybe<Int_Comparison_Exp>;
 };
@@ -1122,6 +1223,7 @@ export type Products_Inc_Input = {
 export type Products_Insert_Input = {
   id?: InputMaybe<Scalars['uuid']>;
   name?: InputMaybe<Scalars['String']>;
+  orderItems?: InputMaybe<Order_Items_Arr_Rel_Insert_Input>;
   price?: InputMaybe<Scalars['Int']>;
   quantity?: InputMaybe<Scalars['Int']>;
 };
@@ -1153,6 +1255,13 @@ export type Products_Mutation_Response = {
   returning: Array<Products>;
 };
 
+/** input type for inserting object relation for remote table "products" */
+export type Products_Obj_Rel_Insert_Input = {
+  data: Products_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Products_On_Conflict>;
+};
+
 /** on_conflict condition type for table "products" */
 export type Products_On_Conflict = {
   constraint: Products_Constraint;
@@ -1164,6 +1273,7 @@ export type Products_On_Conflict = {
 export type Products_Order_By = {
   id?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
+  orderItems_aggregate?: InputMaybe<Order_Items_Aggregate_Order_By>;
   price?: InputMaybe<Order_By>;
   quantity?: InputMaybe<Order_By>;
 };
@@ -1280,6 +1390,12 @@ export type Query_Root = {
   products_aggregate: Products_Aggregate;
   /** fetch data from the table: "products" using primary key columns */
   products_by_pk?: Maybe<Products>;
+  /** fetch data from the table: "testTable" using primary key columns */
+  testTabl?: Maybe<TestTable>;
+  /** fetch data from the table: "testTable" */
+  testTable: Array<TestTable>;
+  /** fetch aggregated fields from the table: "testTable" */
+  testTableAggregate: TestTable_Aggregate;
 };
 
 
@@ -1374,6 +1490,29 @@ export type Query_RootProducts_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
+export type Query_RootTestTablArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootTestTableArgs = {
+  distinct_on?: InputMaybe<Array<TestTable_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TestTable_Order_By>>;
+  where?: InputMaybe<TestTable_Bool_Exp>;
+};
+
+
+export type Query_RootTestTableAggregateArgs = {
+  distinct_on?: InputMaybe<Array<TestTable_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TestTable_Order_By>>;
+  where?: InputMaybe<TestTable_Bool_Exp>;
+};
+
 export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** fetch data from the table: "customers" */
@@ -1400,6 +1539,12 @@ export type Subscription_Root = {
   products_aggregate: Products_Aggregate;
   /** fetch data from the table: "products" using primary key columns */
   products_by_pk?: Maybe<Products>;
+  /** fetch data from the table: "testTable" using primary key columns */
+  testTabl?: Maybe<TestTable>;
+  /** fetch data from the table: "testTable" */
+  testTable: Array<TestTable>;
+  /** fetch aggregated fields from the table: "testTable" */
+  testTableAggregate: TestTable_Aggregate;
 };
 
 
@@ -1494,6 +1639,191 @@ export type Subscription_RootProducts_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
+export type Subscription_RootTestTablArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootTestTableArgs = {
+  distinct_on?: InputMaybe<Array<TestTable_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TestTable_Order_By>>;
+  where?: InputMaybe<TestTable_Bool_Exp>;
+};
+
+
+export type Subscription_RootTestTableAggregateArgs = {
+  distinct_on?: InputMaybe<Array<TestTable_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<TestTable_Order_By>>;
+  where?: InputMaybe<TestTable_Bool_Exp>;
+};
+
+/** columns and relationships of "testTable" */
+export type TestTable = {
+  __typename?: 'testTable';
+  createdAt: Scalars['timestamptz'];
+  id: Scalars['uuid'];
+  isDeleted: Scalars['Boolean'];
+  name: Scalars['String'];
+  updatedAt: Scalars['timestamptz'];
+};
+
+/** aggregated selection of "testTable" */
+export type TestTable_Aggregate = {
+  __typename?: 'testTable_aggregate';
+  aggregate?: Maybe<TestTable_Aggregate_Fields>;
+  nodes: Array<TestTable>;
+};
+
+/** aggregate fields of "testTable" */
+export type TestTable_Aggregate_Fields = {
+  __typename?: 'testTable_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<TestTable_Max_Fields>;
+  min?: Maybe<TestTable_Min_Fields>;
+};
+
+
+/** aggregate fields of "testTable" */
+export type TestTable_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<TestTable_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "testTable". All fields are combined with a logical 'AND'. */
+export type TestTable_Bool_Exp = {
+  _and?: InputMaybe<Array<TestTable_Bool_Exp>>;
+  _not?: InputMaybe<TestTable_Bool_Exp>;
+  _or?: InputMaybe<Array<TestTable_Bool_Exp>>;
+  createdAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  isDeleted?: InputMaybe<Boolean_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  updatedAt?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "testTable" */
+export enum TestTable_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  TestTablePkey = 'testTable_pkey'
+}
+
+/** input type for inserting data into table "testTable" */
+export type TestTable_Insert_Input = {
+  createdAt?: InputMaybe<Scalars['timestamptz']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  isDeleted?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']>;
+};
+
+/** aggregate max on columns */
+export type TestTable_Max_Fields = {
+  __typename?: 'testTable_max_fields';
+  createdAt?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['timestamptz']>;
+};
+
+/** aggregate min on columns */
+export type TestTable_Min_Fields = {
+  __typename?: 'testTable_min_fields';
+  createdAt?: Maybe<Scalars['timestamptz']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['timestamptz']>;
+};
+
+/** response of any mutation on the table "testTable" */
+export type TestTable_Mutation_Response = {
+  __typename?: 'testTable_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<TestTable>;
+};
+
+/** on_conflict condition type for table "testTable" */
+export type TestTable_On_Conflict = {
+  constraint: TestTable_Constraint;
+  update_columns?: Array<TestTable_Update_Column>;
+  where?: InputMaybe<TestTable_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "testTable". */
+export type TestTable_Order_By = {
+  createdAt?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  isDeleted?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  updatedAt?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: testTable */
+export type TestTable_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "testTable" */
+export enum TestTable_Select_Column {
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsDeleted = 'isDeleted',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  UpdatedAt = 'updatedAt'
+}
+
+/** input type for updating data in table "testTable" */
+export type TestTable_Set_Input = {
+  createdAt?: InputMaybe<Scalars['timestamptz']>;
+  id?: InputMaybe<Scalars['uuid']>;
+  isDeleted?: InputMaybe<Scalars['Boolean']>;
+  name?: InputMaybe<Scalars['String']>;
+  updatedAt?: InputMaybe<Scalars['timestamptz']>;
+};
+
+/** update columns of table "testTable" */
+export enum TestTable_Update_Column {
+  /** column name */
+  CreatedAt = 'createdAt',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsDeleted = 'isDeleted',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  UpdatedAt = 'updatedAt'
+}
+
+export type Timestamptz_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
+export type Timestamptz_Comparison_Exp = {
+  _cast?: InputMaybe<Timestamptz_Cast_Exp>;
+  _eq?: InputMaybe<Scalars['timestamptz']>;
+  _gt?: InputMaybe<Scalars['timestamptz']>;
+  _gte?: InputMaybe<Scalars['timestamptz']>;
+  _in?: InputMaybe<Array<Scalars['timestamptz']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['timestamptz']>;
+  _lte?: InputMaybe<Scalars['timestamptz']>;
+  _neq?: InputMaybe<Scalars['timestamptz']>;
+  _nin?: InputMaybe<Array<Scalars['timestamptz']>>;
+};
+
 export type Uuid_Cast_Exp = {
   String?: InputMaybe<String_Comparison_Exp>;
 };
@@ -1516,6 +1846,88 @@ export type DummyQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type DummyQuery = { __typename: 'query_root' };
+
+export type ProductsQueryVariables = Exact<{
+  distinct_on?: InputMaybe<Array<Products_Select_Column> | Products_Select_Column>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Products_Order_By> | Products_Order_By>;
+  where?: InputMaybe<Products_Bool_Exp>;
+}>;
+
+
+export type ProductsQuery = { __typename?: 'query_root', products: Array<{ __typename?: 'products', id: any, name: string }> };
+
+export type Products_By_PkQueryVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type Products_By_PkQuery = { __typename?: 'query_root', products_by_pk?: { __typename?: 'products', id: any, name: string } | null };
+
+export type Delete_ProductsMutationVariables = Exact<{
+  where: Products_Bool_Exp;
+}>;
+
+
+export type Delete_ProductsMutation = { __typename?: 'mutation_root', delete_products?: { __typename?: 'products_mutation_response', returning: Array<{ __typename?: 'products', id: any, name: string, price: number, quantity: number }> } | null };
+
+export type Delete_Products_By_PkMutationVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type Delete_Products_By_PkMutation = { __typename?: 'mutation_root', delete_products_by_pk?: { __typename?: 'products', id: any, name: string } | null };
+
+export type Insert_ProductsMutationVariables = Exact<{
+  products: Array<Products_Insert_Input> | Products_Insert_Input;
+  on_conflict?: InputMaybe<Products_On_Conflict>;
+}>;
+
+
+export type Insert_ProductsMutation = { __typename?: 'mutation_root', insert_products?: { __typename?: 'products_mutation_response', returning: Array<{ __typename?: 'products', id: any, name: string, price: number, quantity: number }> } | null };
+
+export type Insert_Products_OneMutationVariables = Exact<{
+  products: Products_Insert_Input;
+  on_conflict?: InputMaybe<Products_On_Conflict>;
+}>;
+
+
+export type Insert_Products_OneMutation = { __typename?: 'mutation_root', insert_products_one?: { __typename?: 'products', id: any, name: string } | null };
+
+export type Update_ProductsMutationVariables = Exact<{
+  _inc?: InputMaybe<Products_Inc_Input>;
+  products?: InputMaybe<Products_Set_Input>;
+  where: Products_Bool_Exp;
+}>;
+
+
+export type Update_ProductsMutation = { __typename?: 'mutation_root', update_products?: { __typename?: 'products_mutation_response', returning: Array<{ __typename?: 'products', id: any, name: string, price: number, quantity: number }> } | null };
+
+export type Update_Products_By_PkMutationVariables = Exact<{
+  _inc?: InputMaybe<Products_Inc_Input>;
+  products?: InputMaybe<Products_Set_Input>;
+  pk_columns: Products_Pk_Columns_Input;
+}>;
+
+
+export type Update_Products_By_PkMutation = { __typename?: 'mutation_root', update_products_by_pk?: { __typename?: 'products', id: any, name: string } | null };
+
+export type Products_ProductsFragment = { __typename?: 'products', id: any, name: string };
+
+export type Products_By_Pk_ProductsFragment = { __typename?: 'products', id: any, name: string };
+
+export type Delete_Products_Products_Mutation_ResponseFragment = { __typename?: 'products_mutation_response', returning: Array<{ __typename?: 'products', id: any, name: string, price: number, quantity: number }> };
+
+export type Delete_Products_By_Pk_ProductsFragment = { __typename?: 'products', id: any, name: string };
+
+export type Insert_Products_Products_Mutation_ResponseFragment = { __typename?: 'products_mutation_response', returning: Array<{ __typename?: 'products', id: any, name: string, price: number, quantity: number }> };
+
+export type Insert_Products_One_ProductsFragment = { __typename?: 'products', id: any, name: string };
+
+export type Update_Products_Products_Mutation_ResponseFragment = { __typename?: 'products_mutation_response', returning: Array<{ __typename?: 'products', id: any, name: string, price: number, quantity: number }> };
+
+export type Update_Products_By_Pk_ProductsFragment = { __typename?: 'products', id: any, name: string };
 
 export type OrdersQueryVariables = Exact<{
   distinct_on?: InputMaybe<Array<Orders_Select_Column> | Orders_Select_Column>;
@@ -1606,7 +2018,7 @@ export type Order_ItemsQueryVariables = Exact<{
 }>;
 
 
-export type Order_ItemsQuery = { __typename?: 'query_root', order_items: Array<{ __typename?: 'order_items', id: any, name: string, price: number, quantity: number }> };
+export type Order_ItemsQuery = { __typename?: 'query_root', order_items: Array<{ __typename?: 'order_items', id: any, name: string }> };
 
 export type Order_Items_By_PkQueryVariables = Exact<{
   id: Scalars['uuid'];
@@ -1620,7 +2032,7 @@ export type Delete_Order_ItemsMutationVariables = Exact<{
 }>;
 
 
-export type Delete_Order_ItemsMutation = { __typename?: 'mutation_root', delete_order_items?: { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quantity: number }> } | null };
+export type Delete_Order_ItemsMutation = { __typename?: 'mutation_root', delete_order_items?: { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, productId: any, quantity: number }> } | null };
 
 export type Delete_Order_Items_By_PkMutationVariables = Exact<{
   id: Scalars['uuid'];
@@ -1635,7 +2047,7 @@ export type Insert_Order_ItemsMutationVariables = Exact<{
 }>;
 
 
-export type Insert_Order_ItemsMutation = { __typename?: 'mutation_root', insert_order_items?: { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quantity: number }> } | null };
+export type Insert_Order_ItemsMutation = { __typename?: 'mutation_root', insert_order_items?: { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, productId: any, quantity: number }> } | null };
 
 export type Insert_Order_Items_OneMutationVariables = Exact<{
   order_items: Order_Items_Insert_Input;
@@ -1652,7 +2064,7 @@ export type Update_Order_ItemsMutationVariables = Exact<{
 }>;
 
 
-export type Update_Order_ItemsMutation = { __typename?: 'mutation_root', update_order_items?: { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quantity: number }> } | null };
+export type Update_Order_ItemsMutation = { __typename?: 'mutation_root', update_order_items?: { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, productId: any, quantity: number }> } | null };
 
 export type Update_Order_Items_By_PkMutationVariables = Exact<{
   _inc?: InputMaybe<Order_Items_Inc_Input>;
@@ -1663,19 +2075,19 @@ export type Update_Order_Items_By_PkMutationVariables = Exact<{
 
 export type Update_Order_Items_By_PkMutation = { __typename?: 'mutation_root', update_order_items_by_pk?: { __typename?: 'order_items', id: any, name: string } | null };
 
-export type Order_Items_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string, price: number, quantity: number };
+export type Order_Items_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string };
 
 export type Order_Items_By_Pk_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string };
 
-export type Delete_Order_Items_Order_Items_Mutation_ResponseFragment = { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quantity: number }> };
+export type Delete_Order_Items_Order_Items_Mutation_ResponseFragment = { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, productId: any, quantity: number }> };
 
 export type Delete_Order_Items_By_Pk_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string };
 
-export type Insert_Order_Items_Order_Items_Mutation_ResponseFragment = { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quantity: number }> };
+export type Insert_Order_Items_Order_Items_Mutation_ResponseFragment = { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, productId: any, quantity: number }> };
 
 export type Insert_Order_Items_One_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string };
 
-export type Update_Order_Items_Order_Items_Mutation_ResponseFragment = { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quantity: number }> };
+export type Update_Order_Items_Order_Items_Mutation_ResponseFragment = { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, productId: any, quantity: number }> };
 
 export type Update_Order_Items_By_Pk_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string };
 
@@ -1695,21 +2107,21 @@ export type Customers_By_PkQueryVariables = Exact<{
 }>;
 
 
-export type Customers_By_PkQuery = { __typename?: 'query_root', customers_by_pk?: { __typename?: 'customers', id: any, address: string, email: string, firstName: string, lastName: string, phone: string, orders: Array<{ __typename?: 'orders', orderStatus: string, id: any, shippedDate?: any | null, orderDate: any, customerId: any, orderItems: Array<{ __typename?: 'order_items', name: string, id: any, price: number, quantity: number }> }> } | null };
+export type Customers_By_PkQuery = { __typename?: 'query_root', customers_by_pk?: { __typename?: 'customers', id: any, firstName: string, lastName: string, email: string, phone: string, address: string } | null };
 
 export type Delete_CustomersMutationVariables = Exact<{
   where: Customers_Bool_Exp;
 }>;
 
 
-export type Delete_CustomersMutation = { __typename?: 'mutation_root', delete_customers?: { __typename?: 'customers_mutation_response', returning: Array<{ __typename?: 'customers', firstName: string, address: string, email: string, id: any, lastName: string, phone: string }> } | null };
+export type Delete_CustomersMutation = { __typename?: 'mutation_root', delete_customers?: { __typename?: 'customers_mutation_response', returning: Array<{ __typename?: 'customers', address: string, email: string, firstName: string, id: any, lastName: string, phone: string }> } | null };
 
 export type Delete_Customers_By_PkMutationVariables = Exact<{
   id: Scalars['uuid'];
 }>;
 
 
-export type Delete_Customers_By_PkMutation = { __typename?: 'mutation_root', delete_customers_by_pk?: { __typename?: 'customers', id: any, firstName: string, address: string, email: string, lastName: string, phone: string } | null };
+export type Delete_Customers_By_PkMutation = { __typename?: 'mutation_root', delete_customers_by_pk?: { __typename?: 'customers', id: any, address: string, email: string, firstName: string, lastName: string, phone: string } | null };
 
 export type Insert_CustomersMutationVariables = Exact<{
   customers: Array<Customers_Insert_Input> | Customers_Insert_Input;
@@ -1717,7 +2129,7 @@ export type Insert_CustomersMutationVariables = Exact<{
 }>;
 
 
-export type Insert_CustomersMutation = { __typename?: 'mutation_root', insert_customers?: { __typename?: 'customers_mutation_response', returning: Array<{ __typename?: 'customers', firstName: string, address: string, email: string, id: any, lastName: string, phone: string }> } | null };
+export type Insert_CustomersMutation = { __typename?: 'mutation_root', insert_customers?: { __typename?: 'customers_mutation_response', returning: Array<{ __typename?: 'customers', address: string, email: string, firstName: string, id: any, lastName: string, phone: string }> } | null };
 
 export type Insert_Customers_OneMutationVariables = Exact<{
   customers: Customers_Insert_Input;
@@ -1725,7 +2137,7 @@ export type Insert_Customers_OneMutationVariables = Exact<{
 }>;
 
 
-export type Insert_Customers_OneMutation = { __typename?: 'mutation_root', insert_customers_one?: { __typename?: 'customers', id: any, firstName: string, address: string, email: string, lastName: string, phone: string } | null };
+export type Insert_Customers_OneMutation = { __typename?: 'mutation_root', insert_customers_one?: { __typename?: 'customers', id: any, firstName: string, lastName: string, email: string, phone: string, address: string } | null };
 
 export type Update_CustomersMutationVariables = Exact<{
   customers?: InputMaybe<Customers_Set_Input>;
@@ -1741,28 +2153,84 @@ export type Update_Customers_By_PkMutationVariables = Exact<{
 }>;
 
 
-export type Update_Customers_By_PkMutation = { __typename?: 'mutation_root', update_customers_by_pk?: { __typename?: 'customers', id: any, firstName: string, address: string, email: string, lastName: string, phone: string } | null };
+export type Update_Customers_By_PkMutation = { __typename?: 'mutation_root', update_customers_by_pk?: { __typename?: 'customers', id: any, firstName: string, lastName: string, email: string, phone: string, address: string } | null };
 
 export type Customers_CustomersFragment = { __typename?: 'customers', id: any, firstName: string, lastName: string, email: string, phone: string, address: string };
 
-export type Customers_By_Pk_CustomersFragment = { __typename?: 'customers', id: any, address: string, email: string, firstName: string, lastName: string, phone: string };
+export type Customers_By_Pk_CustomersFragment = { __typename?: 'customers', id: any, firstName: string, lastName: string, email: string, phone: string, address: string };
 
-export type Delete_Customers_Customers_Mutation_ResponseFragment = { __typename?: 'customers_mutation_response', returning: Array<{ __typename?: 'customers', firstName: string, address: string, email: string, id: any, lastName: string, phone: string }> };
+export type Delete_Customers_Customers_Mutation_ResponseFragment = { __typename?: 'customers_mutation_response', returning: Array<{ __typename?: 'customers', address: string, email: string, firstName: string, id: any, lastName: string, phone: string }> };
 
-export type Delete_Customers_By_Pk_CustomersFragment = { __typename?: 'customers', id: any, firstName: string, address: string, email: string, lastName: string, phone: string };
+export type Delete_Customers_By_Pk_CustomersFragment = { __typename?: 'customers', id: any, address: string, email: string, firstName: string, lastName: string, phone: string };
 
-export type Insert_Customers_Customers_Mutation_ResponseFragment = { __typename?: 'customers_mutation_response', returning: Array<{ __typename?: 'customers', firstName: string, address: string, email: string, id: any, lastName: string, phone: string }> };
+export type Insert_Customers_Customers_Mutation_ResponseFragment = { __typename?: 'customers_mutation_response', returning: Array<{ __typename?: 'customers', address: string, email: string, firstName: string, id: any, lastName: string, phone: string }> };
 
-export type Insert_Customers_One_CustomersFragment = { __typename?: 'customers', id: any, firstName: string, address: string, email: string, lastName: string, phone: string };
+export type Insert_Customers_One_CustomersFragment = { __typename?: 'customers', id: any, firstName: string, lastName: string, email: string, phone: string, address: string };
 
 export type Update_Customers_Customers_Mutation_ResponseFragment = { __typename?: 'customers_mutation_response', returning: Array<{ __typename?: 'customers', firstName: string, address: string, email: string, id: any, lastName: string, phone: string }> };
 
-export type Update_Customers_By_Pk_CustomersFragment = { __typename?: 'customers', id: any, firstName: string, address: string, email: string, lastName: string, phone: string };
+export type Update_Customers_By_Pk_CustomersFragment = { __typename?: 'customers', id: any, firstName: string, lastName: string, email: string, phone: string, address: string };
 
-export type Customers_By_Pk_OrdersFragment = { __typename?: 'orders', orderStatus: string, id: any, shippedDate?: any | null, orderDate: any, customerId: any };
-
-export type Customers_By_Pk_Orders_OrderItemsFragment = { __typename?: 'order_items', name: string, id: any, price: number, quantity: number };
-
+export const Products_ProductsFragmentDoc = gql`
+    fragment products_products on products {
+  id
+  name
+}
+    `;
+export const Products_By_Pk_ProductsFragmentDoc = gql`
+    fragment products_by_pk_products on products {
+  id
+  name
+}
+    `;
+export const Delete_Products_Products_Mutation_ResponseFragmentDoc = gql`
+    fragment delete_products_products_mutation_response on products_mutation_response {
+  returning {
+    id
+    name
+    price
+    quantity
+  }
+}
+    `;
+export const Delete_Products_By_Pk_ProductsFragmentDoc = gql`
+    fragment delete_products_by_pk_products on products {
+  id
+  name
+}
+    `;
+export const Insert_Products_Products_Mutation_ResponseFragmentDoc = gql`
+    fragment insert_products_products_mutation_response on products_mutation_response {
+  returning {
+    id
+    name
+    price
+    quantity
+  }
+}
+    `;
+export const Insert_Products_One_ProductsFragmentDoc = gql`
+    fragment insert_products_one_products on products {
+  id
+  name
+}
+    `;
+export const Update_Products_Products_Mutation_ResponseFragmentDoc = gql`
+    fragment update_products_products_mutation_response on products_mutation_response {
+  returning {
+    id
+    name
+    price
+    quantity
+  }
+}
+    `;
+export const Update_Products_By_Pk_ProductsFragmentDoc = gql`
+    fragment update_products_by_pk_products on products {
+  id
+  name
+}
+    `;
 export const Orders_OrdersFragmentDoc = gql`
     fragment orders_orders on orders {
   id
@@ -1840,8 +2308,6 @@ export const Order_Items_Order_ItemsFragmentDoc = gql`
     fragment order_items_order_items on order_items {
   id
   name
-  price
-  quantity
 }
     `;
 export const Order_Items_By_Pk_Order_ItemsFragmentDoc = gql`
@@ -1857,6 +2323,7 @@ export const Delete_Order_Items_Order_Items_Mutation_ResponseFragmentDoc = gql`
     name
     orderId
     price
+    productId
     quantity
   }
 }
@@ -1874,6 +2341,7 @@ export const Insert_Order_Items_Order_Items_Mutation_ResponseFragmentDoc = gql`
     name
     orderId
     price
+    productId
     quantity
   }
 }
@@ -1891,6 +2359,7 @@ export const Update_Order_Items_Order_Items_Mutation_ResponseFragmentDoc = gql`
     name
     orderId
     price
+    productId
     quantity
   }
 }
@@ -1914,19 +2383,19 @@ export const Customers_CustomersFragmentDoc = gql`
 export const Customers_By_Pk_CustomersFragmentDoc = gql`
     fragment customers_by_pk_customers on customers {
   id
-  address
-  email
   firstName
   lastName
+  email
   phone
+  address
 }
     `;
 export const Delete_Customers_Customers_Mutation_ResponseFragmentDoc = gql`
     fragment delete_customers_customers_mutation_response on customers_mutation_response {
   returning {
-    firstName
     address
     email
+    firstName
     id
     lastName
     phone
@@ -1936,9 +2405,9 @@ export const Delete_Customers_Customers_Mutation_ResponseFragmentDoc = gql`
 export const Delete_Customers_By_Pk_CustomersFragmentDoc = gql`
     fragment delete_customers_by_pk_customers on customers {
   id
-  firstName
   address
   email
+  firstName
   lastName
   phone
 }
@@ -1946,9 +2415,9 @@ export const Delete_Customers_By_Pk_CustomersFragmentDoc = gql`
 export const Insert_Customers_Customers_Mutation_ResponseFragmentDoc = gql`
     fragment insert_customers_customers_mutation_response on customers_mutation_response {
   returning {
-    firstName
     address
     email
+    firstName
     id
     lastName
     phone
@@ -1959,10 +2428,10 @@ export const Insert_Customers_One_CustomersFragmentDoc = gql`
     fragment insert_customers_one_customers on customers {
   id
   firstName
-  address
-  email
   lastName
+  email
   phone
+  address
 }
     `;
 export const Update_Customers_Customers_Mutation_ResponseFragmentDoc = gql`
@@ -1981,28 +2450,10 @@ export const Update_Customers_By_Pk_CustomersFragmentDoc = gql`
     fragment update_customers_by_pk_customers on customers {
   id
   firstName
-  address
-  email
   lastName
+  email
   phone
-}
-    `;
-export const Customers_By_Pk_OrdersFragmentDoc = gql`
-    fragment customers_by_pk_orders on orders {
-  orderStatus
-  id
-  shippedDate
-  orderDate
-  id
-  customerId
-}
-    `;
-export const Customers_By_Pk_Orders_OrderItemsFragmentDoc = gql`
-    fragment customers_by_pk_orders_orderItems on order_items {
-  name
-  id
-  price
-  quantity
+  address
 }
     `;
 export const DummyDocument = gql`
@@ -2013,6 +2464,100 @@ export const DummyDocument = gql`
 
 export function useDummyQuery(options?: Omit<Urql.UseQueryArgs<DummyQueryVariables>, 'query'>) {
   return Urql.useQuery<DummyQuery>({ query: DummyDocument, ...options });
+};
+export const ProductsDocument = gql`
+    query products($distinct_on: [products_select_column!], $limit: Int, $offset: Int, $order_by: [products_order_by!], $where: products_bool_exp) {
+  products(
+    distinct_on: $distinct_on
+    limit: $limit
+    offset: $offset
+    order_by: $order_by
+    where: $where
+  ) {
+    ...products_products
+  }
+}
+    ${Products_ProductsFragmentDoc}`;
+
+export function useProductsQuery(options?: Omit<Urql.UseQueryArgs<ProductsQueryVariables>, 'query'>) {
+  return Urql.useQuery<ProductsQuery>({ query: ProductsDocument, ...options });
+};
+export const Products_By_PkDocument = gql`
+    query products_by_pk($id: uuid!) {
+  products_by_pk(id: $id) {
+    ...products_by_pk_products
+  }
+}
+    ${Products_By_Pk_ProductsFragmentDoc}`;
+
+export function useProducts_By_PkQuery(options: Omit<Urql.UseQueryArgs<Products_By_PkQueryVariables>, 'query'>) {
+  return Urql.useQuery<Products_By_PkQuery>({ query: Products_By_PkDocument, ...options });
+};
+export const Delete_ProductsDocument = gql`
+    mutation delete_products($where: products_bool_exp!) {
+  delete_products(where: $where) {
+    ...delete_products_products_mutation_response
+  }
+}
+    ${Delete_Products_Products_Mutation_ResponseFragmentDoc}`;
+
+export function useDelete_ProductsMutation() {
+  return Urql.useMutation<Delete_ProductsMutation, Delete_ProductsMutationVariables>(Delete_ProductsDocument);
+};
+export const Delete_Products_By_PkDocument = gql`
+    mutation delete_products_by_pk($id: uuid!) {
+  delete_products_by_pk(id: $id) {
+    ...delete_products_by_pk_products
+  }
+}
+    ${Delete_Products_By_Pk_ProductsFragmentDoc}`;
+
+export function useDelete_Products_By_PkMutation() {
+  return Urql.useMutation<Delete_Products_By_PkMutation, Delete_Products_By_PkMutationVariables>(Delete_Products_By_PkDocument);
+};
+export const Insert_ProductsDocument = gql`
+    mutation insert_products($products: [products_insert_input!]!, $on_conflict: products_on_conflict) {
+  insert_products(objects: $products, on_conflict: $on_conflict) {
+    ...insert_products_products_mutation_response
+  }
+}
+    ${Insert_Products_Products_Mutation_ResponseFragmentDoc}`;
+
+export function useInsert_ProductsMutation() {
+  return Urql.useMutation<Insert_ProductsMutation, Insert_ProductsMutationVariables>(Insert_ProductsDocument);
+};
+export const Insert_Products_OneDocument = gql`
+    mutation insert_products_one($products: products_insert_input!, $on_conflict: products_on_conflict) {
+  insert_products_one(object: $products, on_conflict: $on_conflict) {
+    ...insert_products_one_products
+  }
+}
+    ${Insert_Products_One_ProductsFragmentDoc}`;
+
+export function useInsert_Products_OneMutation() {
+  return Urql.useMutation<Insert_Products_OneMutation, Insert_Products_OneMutationVariables>(Insert_Products_OneDocument);
+};
+export const Update_ProductsDocument = gql`
+    mutation update_products($_inc: products_inc_input, $products: products_set_input, $where: products_bool_exp!) {
+  update_products(_inc: $_inc, _set: $products, where: $where) {
+    ...update_products_products_mutation_response
+  }
+}
+    ${Update_Products_Products_Mutation_ResponseFragmentDoc}`;
+
+export function useUpdate_ProductsMutation() {
+  return Urql.useMutation<Update_ProductsMutation, Update_ProductsMutationVariables>(Update_ProductsDocument);
+};
+export const Update_Products_By_PkDocument = gql`
+    mutation update_products_by_pk($_inc: products_inc_input, $products: products_set_input, $pk_columns: products_pk_columns_input!) {
+  update_products_by_pk(_inc: $_inc, _set: $products, pk_columns: $pk_columns) {
+    ...update_products_by_pk_products
+  }
+}
+    ${Update_Products_By_Pk_ProductsFragmentDoc}`;
+
+export function useUpdate_Products_By_PkMutation() {
+  return Urql.useMutation<Update_Products_By_PkMutation, Update_Products_By_PkMutationVariables>(Update_Products_By_PkDocument);
 };
 export const OrdersDocument = gql`
     query orders($distinct_on: [orders_select_column!], $limit: Int, $offset: Int, $order_by: [orders_order_by!], $where: orders_bool_exp) {
@@ -2227,17 +2772,9 @@ export const Customers_By_PkDocument = gql`
     query customers_by_pk($id: uuid!) {
   customers_by_pk(id: $id) {
     ...customers_by_pk_customers
-    orders {
-      ...customers_by_pk_orders
-      orderItems {
-        ...customers_by_pk_orders_orderItems
-      }
-    }
   }
 }
-    ${Customers_By_Pk_CustomersFragmentDoc}
-${Customers_By_Pk_OrdersFragmentDoc}
-${Customers_By_Pk_Orders_OrderItemsFragmentDoc}`;
+    ${Customers_By_Pk_CustomersFragmentDoc}`;
 
 export function useCustomers_By_PkQuery(options: Omit<Urql.UseQueryArgs<Customers_By_PkQueryVariables>, 'query'>) {
   return Urql.useQuery<Customers_By_PkQuery>({ query: Customers_By_PkDocument, ...options });
