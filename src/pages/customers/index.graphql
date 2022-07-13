@@ -22,6 +22,9 @@ query customers_by_pk($id: uuid!) {
       ...customers_by_pk_orders
       orderItems {
         ...customers_by_pk_orders_orderItems
+        product {
+          ...customers_by_pk_orders_orderItems_product
+        }
       }
     }
   }
@@ -157,4 +160,9 @@ fragment customers_by_pk_orders_orderItems on order_items {
   id
   quantity
   price
+}
+
+fragment customers_by_pk_orders_orderItems_product on products {
+  quantity
+  id
 }

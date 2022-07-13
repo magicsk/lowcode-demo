@@ -1656,7 +1656,7 @@ export type Orders_By_PkQueryVariables = Exact<{
 }>;
 
 
-export type Orders_By_PkQuery = { __typename?: 'query_root', orders_by_pk?: { __typename?: 'orders', id: any, orderStatus: string, orderDate: any, shippedDate?: any | null } | null };
+export type Orders_By_PkQuery = { __typename?: 'query_root', orders_by_pk?: { __typename?: 'orders', id: any, orderStatus: string, orderDate: any, shippedDate?: any | null, orderItems: Array<{ __typename?: 'order_items', name: string, id: any, quantity: number, price: number, product: { __typename?: 'products', quantity: number, id: any } }> } | null };
 
 export type Delete_OrdersMutationVariables = Exact<{
   where: Orders_Bool_Exp;
@@ -1720,6 +1720,10 @@ export type Update_Orders_Orders_Mutation_ResponseFragment = { __typename?: 'ord
 
 export type Update_Orders_By_Pk_OrdersFragment = { __typename?: 'orders', id: any, orderStatus: string, orderDate: any, shippedDate?: any | null };
 
+export type Orders_By_Pk_OrderItemsFragment = { __typename?: 'order_items', name: string, id: any, quantity: number, price: number };
+
+export type Orders_By_Pk_OrderItems_ProductFragment = { __typename?: 'products', quantity: number, id: any };
+
 export type Order_ItemsQueryVariables = Exact<{
   distinct_on?: InputMaybe<Array<Order_Items_Select_Column> | Order_Items_Select_Column>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -1736,7 +1740,7 @@ export type Order_Items_By_PkQueryVariables = Exact<{
 }>;
 
 
-export type Order_Items_By_PkQuery = { __typename?: 'query_root', order_items_by_pk?: { __typename?: 'order_items', id: any, name: string } | null };
+export type Order_Items_By_PkQuery = { __typename?: 'query_root', order_items_by_pk?: { __typename?: 'order_items', id: any, name: string, quantity: number, price: number } | null };
 
 export type Delete_Order_ItemsMutationVariables = Exact<{
   where: Order_Items_Bool_Exp;
@@ -1788,7 +1792,7 @@ export type Update_Order_Items_By_PkMutation = { __typename?: 'mutation_root', u
 
 export type Order_Items_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string, quantity: number, price: number };
 
-export type Order_Items_By_Pk_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string };
+export type Order_Items_By_Pk_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string, quantity: number, price: number };
 
 export type Delete_Order_Items_Order_Items_Mutation_ResponseFragment = { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, productId: any, quantity: number }> };
 
@@ -1818,7 +1822,7 @@ export type Customers_By_PkQueryVariables = Exact<{
 }>;
 
 
-export type Customers_By_PkQuery = { __typename?: 'query_root', customers_by_pk?: { __typename?: 'customers', id: any, firstName: string, lastName: string, email: string, phone: string, address: string, orders: Array<{ __typename?: 'orders', orderStatus: string, orderDate: any, id: any, shippedDate?: any | null, orderItems: Array<{ __typename?: 'order_items', name: string, id: any, quantity: number, price: number }> }> } | null };
+export type Customers_By_PkQuery = { __typename?: 'query_root', customers_by_pk?: { __typename?: 'customers', id: any, firstName: string, lastName: string, email: string, phone: string, address: string, orders: Array<{ __typename?: 'orders', orderStatus: string, orderDate: any, id: any, shippedDate?: any | null, orderItems: Array<{ __typename?: 'order_items', name: string, id: any, quantity: number, price: number, product: { __typename?: 'products', quantity: number, id: any } }> }> } | null };
 
 export type Delete_CustomersMutationVariables = Exact<{
   where: Customers_Bool_Exp;
@@ -1887,6 +1891,8 @@ export type Customers_Orders_Aggregate_AggregateFragment = { __typename?: 'order
 export type Customers_By_Pk_OrdersFragment = { __typename?: 'orders', orderStatus: string, orderDate: any, id: any, shippedDate?: any | null };
 
 export type Customers_By_Pk_Orders_OrderItemsFragment = { __typename?: 'order_items', name: string, id: any, quantity: number, price: number };
+
+export type Customers_By_Pk_Orders_OrderItems_ProductFragment = { __typename?: 'products', quantity: number, id: any };
 
 export const Products_ProductsFragmentDoc = gql`
     fragment products_products on products {
@@ -2033,6 +2039,20 @@ export const Update_Orders_By_Pk_OrdersFragmentDoc = gql`
   shippedDate
 }
     `;
+export const Orders_By_Pk_OrderItemsFragmentDoc = gql`
+    fragment orders_by_pk_orderItems on order_items {
+  name
+  id
+  quantity
+  price
+}
+    `;
+export const Orders_By_Pk_OrderItems_ProductFragmentDoc = gql`
+    fragment orders_by_pk_orderItems_product on products {
+  quantity
+  id
+}
+    `;
 export const Order_Items_Order_ItemsFragmentDoc = gql`
     fragment order_items_order_items on order_items {
   id
@@ -2045,6 +2065,8 @@ export const Order_Items_By_Pk_Order_ItemsFragmentDoc = gql`
     fragment order_items_by_pk_order_items on order_items {
   id
   name
+  quantity
+  price
 }
     `;
 export const Delete_Order_Items_Order_Items_Mutation_ResponseFragmentDoc = gql`
@@ -2208,6 +2230,12 @@ export const Customers_By_Pk_Orders_OrderItemsFragmentDoc = gql`
   price
 }
     `;
+export const Customers_By_Pk_Orders_OrderItems_ProductFragmentDoc = gql`
+    fragment customers_by_pk_orders_orderItems_product on products {
+  quantity
+  id
+}
+    `;
 export const DummyDocument = gql`
     query dummy {
   __typename
@@ -2338,9 +2366,17 @@ export const Orders_By_PkDocument = gql`
     query orders_by_pk($id: uuid!) {
   orders_by_pk(id: $id) {
     ...orders_by_pk_orders
+    orderItems {
+      ...orders_by_pk_orderItems
+      product {
+        ...orders_by_pk_orderItems_product
+      }
+    }
   }
 }
-    ${Orders_By_Pk_OrdersFragmentDoc}`;
+    ${Orders_By_Pk_OrdersFragmentDoc}
+${Orders_By_Pk_OrderItemsFragmentDoc}
+${Orders_By_Pk_OrderItems_ProductFragmentDoc}`;
 
 export function useOrders_By_PkQuery(options: Omit<Urql.UseQueryArgs<Orders_By_PkQueryVariables>, 'query'>) {
   return Urql.useQuery<Orders_By_PkQuery>({ query: Orders_By_PkDocument, ...options });
@@ -2540,13 +2576,17 @@ export const Customers_By_PkDocument = gql`
       ...customers_by_pk_orders
       orderItems {
         ...customers_by_pk_orders_orderItems
+        product {
+          ...customers_by_pk_orders_orderItems_product
+        }
       }
     }
   }
 }
     ${Customers_By_Pk_CustomersFragmentDoc}
 ${Customers_By_Pk_OrdersFragmentDoc}
-${Customers_By_Pk_Orders_OrderItemsFragmentDoc}`;
+${Customers_By_Pk_Orders_OrderItemsFragmentDoc}
+${Customers_By_Pk_Orders_OrderItems_ProductFragmentDoc}`;
 
 export function useCustomers_By_PkQuery(options: Omit<Urql.UseQueryArgs<Customers_By_PkQueryVariables>, 'query'>) {
   return Urql.useQuery<Customers_By_PkQuery>({ query: Customers_By_PkDocument, ...options });

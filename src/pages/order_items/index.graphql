@@ -66,6 +66,8 @@ fragment order_items_order_items on order_items {
 fragment order_items_by_pk_order_items on order_items {
   id
   name
+  quantity
+  price
 }
 
 fragment delete_order_items_order_items_mutation_response on order_items_mutation_response {

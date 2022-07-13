@@ -1,5 +1,5 @@
 {
-    "customers": "CUSTOMERS",
+    "customers": "CUSTOMER",
     "total.customers": "TOTAL CUSTOMERS",
     "total.profit": "TOTAL PROFIT",
     "budget": "BUDGET",
@@ -12,10 +12,13 @@
   "orders.shippedDate": "Shipping date",
   "customers.orders_aggregate.aggregate.count": "Orders",
   "orders.orderItems": "Items in order",
-  "orderItems": "Orders of this product",
+  "orderItems": "Items in order",
   "order.orderStatus": "Status",
   "order.orderDate": "Date or order",
   "order.shippedDate": "Shipping date",
   "products": "Product",
-  "orders": "Order"
+  "orders": "Order",
+  "product.quantity": "Remaining quantity in warehouse",
+  "orderItems.quantity": "Ordered quantity",
+  "order_items": "Order item"
 }
