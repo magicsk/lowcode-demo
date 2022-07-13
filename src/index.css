@@ -37,3 +37,11 @@ code {
 .MuiDrawer-root .MuiTypography-root {
   white-space: nowrap;
 }
+
+.MuiListItem-root:last-child {
+  display: none;
+}
+
+.MuiListItem-root .MuiListItemButton-root {
+  margin: 0;
+}
