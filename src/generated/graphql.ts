@@ -292,6 +292,10 @@ export type Mutation_Root = {
   delete_orders?: Maybe<Orders_Mutation_Response>;
   /** delete single row from the table: "orders" */
   delete_orders_by_pk?: Maybe<Orders>;
+  /** delete data from the table: "products" */
+  delete_products?: Maybe<Products_Mutation_Response>;
+  /** delete single row from the table: "products" */
+  delete_products_by_pk?: Maybe<Products>;
   /** insert data into the table: "customers" */
   insert_customers?: Maybe<Customers_Mutation_Response>;
   /** insert a single row into the table: "customers" */
@@ -304,6 +308,10 @@ export type Mutation_Root = {
   insert_orders?: Maybe<Orders_Mutation_Response>;
   /** insert a single row into the table: "orders" */
   insert_orders_one?: Maybe<Orders>;
+  /** insert data into the table: "products" */
+  insert_products?: Maybe<Products_Mutation_Response>;
+  /** insert a single row into the table: "products" */
+  insert_products_one?: Maybe<Products>;
   /** update data of the table: "customers" */
   update_customers?: Maybe<Customers_Mutation_Response>;
   /** update single row of the table: "customers" */
@@ -316,6 +324,10 @@ export type Mutation_Root = {
   update_orders?: Maybe<Orders_Mutation_Response>;
   /** update single row of the table: "orders" */
   update_orders_by_pk?: Maybe<Orders>;
+  /** update data of the table: "products" */
+  update_products?: Maybe<Products_Mutation_Response>;
+  /** update single row of the table: "products" */
+  update_products_by_pk?: Maybe<Products>;
 };
 
 
@@ -351,6 +363,18 @@ export type Mutation_RootDelete_OrdersArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Orders_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_ProductsArgs = {
+  where: Products_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Products_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -398,6 +422,20 @@ export type Mutation_RootInsert_Orders_OneArgs = {
 
 
 /** mutation root */
+export type Mutation_RootInsert_ProductsArgs = {
+  objects: Array<Products_Insert_Input>;
+  on_conflict?: InputMaybe<Products_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Products_OneArgs = {
+  object: Products_Insert_Input;
+  on_conflict?: InputMaybe<Products_On_Conflict>;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_CustomersArgs = {
   _set?: InputMaybe<Customers_Set_Input>;
   where: Customers_Bool_Exp;
@@ -440,6 +478,22 @@ export type Mutation_RootUpdate_Orders_By_PkArgs = {
   pk_columns: Orders_Pk_Columns_Input;
 };
 
+
+/** mutation root */
+export type Mutation_RootUpdate_ProductsArgs = {
+  _inc?: InputMaybe<Products_Inc_Input>;
+  _set?: InputMaybe<Products_Set_Input>;
+  where: Products_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Products_By_PkArgs = {
+  _inc?: InputMaybe<Products_Inc_Input>;
+  _set?: InputMaybe<Products_Set_Input>;
+  pk_columns: Products_Pk_Columns_Input;
+};
+
 /** column ordering options */
 export enum Order_By {
   /** in ascending order, nulls last */
@@ -465,7 +519,8 @@ export type Order_Items = {
   order: Orders;
   orderId: Scalars['uuid'];
   price: Scalars['Int'];
-  quanitity: Scalars['Int'];
+  productId: Scalars['uuid'];
+  quantity: Scalars['Int'];
 };
 
 /** aggregated selection of "order_items" */
@@ -524,13 +579,13 @@ export type Order_Items_Arr_Rel_Insert_Input = {
 export type Order_Items_Avg_Fields = {
   __typename?: 'order_items_avg_fields';
   price?: Maybe<Scalars['Float']>;
-  quanitity?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
 };
 
 /** order by avg() on columns of table "order_items" */
 export type Order_Items_Avg_Order_By = {
   price?: InputMaybe<Order_By>;
-  quanitity?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "order_items". All fields are combined with a logical 'AND'. */
@@ -543,7 +598,8 @@ export type Order_Items_Bool_Exp = {
   order?: InputMaybe<Orders_Bool_Exp>;
   orderId?: InputMaybe<Uuid_Comparison_Exp>;
   price?: InputMaybe<Int_Comparison_Exp>;
-  quanitity?: InputMaybe<Int_Comparison_Exp>;
+  productId?: InputMaybe<Uuid_Comparison_Exp>;
+  quantity?: InputMaybe<Int_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "order_items" */
@@ -555,7 +611,7 @@ export enum Order_Items_Constraint {
 /** input type for incrementing numeric columns in table "order_items" */
 export type Order_Items_Inc_Input = {
   price?: InputMaybe<Scalars['Int']>;
-  quanitity?: InputMaybe<Scalars['Int']>;
+  quantity?: InputMaybe<Scalars['Int']>;
 };
 
 /** input type for inserting data into table "order_items" */
@@ -565,7 +621,8 @@ export type Order_Items_Insert_Input = {
   order?: InputMaybe<Orders_Obj_Rel_Insert_Input>;
   orderId?: InputMaybe<Scalars['uuid']>;
   price?: InputMaybe<Scalars['Int']>;
-  quanitity?: InputMaybe<Scalars['Int']>;
+  productId?: InputMaybe<Scalars['uuid']>;
+  quantity?: InputMaybe<Scalars['Int']>;
 };
 
 /** aggregate max on columns */
@@ -575,7 +632,8 @@ export type Order_Items_Max_Fields = {
   name?: Maybe<Scalars['String']>;
   orderId?: Maybe<Scalars['uuid']>;
   price?: Maybe<Scalars['Int']>;
-  quanitity?: Maybe<Scalars['Int']>;
+  productId?: Maybe<Scalars['uuid']>;
+  quantity?: Maybe<Scalars['Int']>;
 };
 
 /** order by max() on columns of table "order_items" */
@@ -584,7 +642,8 @@ export type Order_Items_Max_Order_By = {
   name?: InputMaybe<Order_By>;
   orderId?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
-  quanitity?: InputMaybe<Order_By>;
+  productId?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -594,7 +653,8 @@ export type Order_Items_Min_Fields = {
   name?: Maybe<Scalars['String']>;
   orderId?: Maybe<Scalars['uuid']>;
   price?: Maybe<Scalars['Int']>;
-  quanitity?: Maybe<Scalars['Int']>;
+  productId?: Maybe<Scalars['uuid']>;
+  quantity?: Maybe<Scalars['Int']>;
 };
 
 /** order by min() on columns of table "order_items" */
@@ -603,7 +663,8 @@ export type Order_Items_Min_Order_By = {
   name?: InputMaybe<Order_By>;
   orderId?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
-  quanitity?: InputMaybe<Order_By>;
+  productId?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "order_items" */
@@ -629,7 +690,8 @@ export type Order_Items_Order_By = {
   order?: InputMaybe<Orders_Order_By>;
   orderId?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
-  quanitity?: InputMaybe<Order_By>;
+  productId?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: order_items */
@@ -648,7 +710,9 @@ export enum Order_Items_Select_Column {
   /** column name */
   Price = 'price',
   /** column name */
-  Quanitity = 'quanitity'
+  ProductId = 'productId',
+  /** column name */
+  Quantity = 'quantity'
 }
 
 /** input type for updating data in table "order_items" */
@@ -657,59 +721,60 @@ export type Order_Items_Set_Input = {
   name?: InputMaybe<Scalars['String']>;
   orderId?: InputMaybe<Scalars['uuid']>;
   price?: InputMaybe<Scalars['Int']>;
-  quanitity?: InputMaybe<Scalars['Int']>;
+  productId?: InputMaybe<Scalars['uuid']>;
+  quantity?: InputMaybe<Scalars['Int']>;
 };
 
 /** aggregate stddev on columns */
 export type Order_Items_Stddev_Fields = {
   __typename?: 'order_items_stddev_fields';
   price?: Maybe<Scalars['Float']>;
-  quanitity?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev() on columns of table "order_items" */
 export type Order_Items_Stddev_Order_By = {
   price?: InputMaybe<Order_By>;
-  quanitity?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_pop on columns */
 export type Order_Items_Stddev_Pop_Fields = {
   __typename?: 'order_items_stddev_pop_fields';
   price?: Maybe<Scalars['Float']>;
-  quanitity?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_pop() on columns of table "order_items" */
 export type Order_Items_Stddev_Pop_Order_By = {
   price?: InputMaybe<Order_By>;
-  quanitity?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_samp on columns */
 export type Order_Items_Stddev_Samp_Fields = {
   __typename?: 'order_items_stddev_samp_fields';
   price?: Maybe<Scalars['Float']>;
-  quanitity?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_samp() on columns of table "order_items" */
 export type Order_Items_Stddev_Samp_Order_By = {
   price?: InputMaybe<Order_By>;
-  quanitity?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
 };
 
 /** aggregate sum on columns */
 export type Order_Items_Sum_Fields = {
   __typename?: 'order_items_sum_fields';
   price?: Maybe<Scalars['Int']>;
-  quanitity?: Maybe<Scalars['Int']>;
+  quantity?: Maybe<Scalars['Int']>;
 };
 
 /** order by sum() on columns of table "order_items" */
 export type Order_Items_Sum_Order_By = {
   price?: InputMaybe<Order_By>;
-  quanitity?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "order_items" */
@@ -723,46 +788,48 @@ export enum Order_Items_Update_Column {
   /** column name */
   Price = 'price',
   /** column name */
-  Quanitity = 'quanitity'
+  ProductId = 'productId',
+  /** column name */
+  Quantity = 'quantity'
 }
 
 /** aggregate var_pop on columns */
 export type Order_Items_Var_Pop_Fields = {
   __typename?: 'order_items_var_pop_fields';
   price?: Maybe<Scalars['Float']>;
-  quanitity?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_pop() on columns of table "order_items" */
 export type Order_Items_Var_Pop_Order_By = {
   price?: InputMaybe<Order_By>;
-  quanitity?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
 };
 
 /** aggregate var_samp on columns */
 export type Order_Items_Var_Samp_Fields = {
   __typename?: 'order_items_var_samp_fields';
   price?: Maybe<Scalars['Float']>;
-  quanitity?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_samp() on columns of table "order_items" */
 export type Order_Items_Var_Samp_Order_By = {
   price?: InputMaybe<Order_By>;
-  quanitity?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
 };
 
 /** aggregate variance on columns */
 export type Order_Items_Variance_Fields = {
   __typename?: 'order_items_variance_fields';
   price?: Maybe<Scalars['Float']>;
-  quanitity?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
 };
 
 /** order by variance() on columns of table "order_items" */
 export type Order_Items_Variance_Order_By = {
   price?: InputMaybe<Order_By>;
-  quanitity?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
 };
 
 /** List of orders */
@@ -982,6 +1049,211 @@ export enum Orders_Update_Column {
   ShippedDate = 'shippedDate'
 }
 
+/** Types of products */
+export type Products = {
+  __typename?: 'products';
+  id: Scalars['uuid'];
+  name: Scalars['String'];
+  price: Scalars['Int'];
+  quantity: Scalars['Int'];
+};
+
+/** aggregated selection of "products" */
+export type Products_Aggregate = {
+  __typename?: 'products_aggregate';
+  aggregate?: Maybe<Products_Aggregate_Fields>;
+  nodes: Array<Products>;
+};
+
+/** aggregate fields of "products" */
+export type Products_Aggregate_Fields = {
+  __typename?: 'products_aggregate_fields';
+  avg?: Maybe<Products_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Products_Max_Fields>;
+  min?: Maybe<Products_Min_Fields>;
+  stddev?: Maybe<Products_Stddev_Fields>;
+  stddev_pop?: Maybe<Products_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Products_Stddev_Samp_Fields>;
+  sum?: Maybe<Products_Sum_Fields>;
+  var_pop?: Maybe<Products_Var_Pop_Fields>;
+  var_samp?: Maybe<Products_Var_Samp_Fields>;
+  variance?: Maybe<Products_Variance_Fields>;
+};
+
+
+/** aggregate fields of "products" */
+export type Products_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Products_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Products_Avg_Fields = {
+  __typename?: 'products_avg_fields';
+  price?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "products". All fields are combined with a logical 'AND'. */
+export type Products_Bool_Exp = {
+  _and?: InputMaybe<Array<Products_Bool_Exp>>;
+  _not?: InputMaybe<Products_Bool_Exp>;
+  _or?: InputMaybe<Array<Products_Bool_Exp>>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  price?: InputMaybe<Int_Comparison_Exp>;
+  quantity?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "products" */
+export enum Products_Constraint {
+  /** unique or primary key constraint on columns "id" */
+  ProductsPkey = 'products_pkey'
+}
+
+/** input type for incrementing numeric columns in table "products" */
+export type Products_Inc_Input = {
+  price?: InputMaybe<Scalars['Int']>;
+  quantity?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "products" */
+export type Products_Insert_Input = {
+  id?: InputMaybe<Scalars['uuid']>;
+  name?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['Int']>;
+  quantity?: InputMaybe<Scalars['Int']>;
+};
+
+/** aggregate max on columns */
+export type Products_Max_Fields = {
+  __typename?: 'products_max_fields';
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Int']>;
+  quantity?: Maybe<Scalars['Int']>;
+};
+
+/** aggregate min on columns */
+export type Products_Min_Fields = {
+  __typename?: 'products_min_fields';
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Int']>;
+  quantity?: Maybe<Scalars['Int']>;
+};
+
+/** response of any mutation on the table "products" */
+export type Products_Mutation_Response = {
+  __typename?: 'products_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Products>;
+};
+
+/** on_conflict condition type for table "products" */
+export type Products_On_Conflict = {
+  constraint: Products_Constraint;
+  update_columns?: Array<Products_Update_Column>;
+  where?: InputMaybe<Products_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "products". */
+export type Products_Order_By = {
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  price?: InputMaybe<Order_By>;
+  quantity?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: products */
+export type Products_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "products" */
+export enum Products_Select_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Price = 'price',
+  /** column name */
+  Quantity = 'quantity'
+}
+
+/** input type for updating data in table "products" */
+export type Products_Set_Input = {
+  id?: InputMaybe<Scalars['uuid']>;
+  name?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['Int']>;
+  quantity?: InputMaybe<Scalars['Int']>;
+};
+
+/** aggregate stddev on columns */
+export type Products_Stddev_Fields = {
+  __typename?: 'products_stddev_fields';
+  price?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Products_Stddev_Pop_Fields = {
+  __typename?: 'products_stddev_pop_fields';
+  price?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Products_Stddev_Samp_Fields = {
+  __typename?: 'products_stddev_samp_fields';
+  price?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate sum on columns */
+export type Products_Sum_Fields = {
+  __typename?: 'products_sum_fields';
+  price?: Maybe<Scalars['Int']>;
+  quantity?: Maybe<Scalars['Int']>;
+};
+
+/** update columns of table "products" */
+export enum Products_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Price = 'price',
+  /** column name */
+  Quantity = 'quantity'
+}
+
+/** aggregate var_pop on columns */
+export type Products_Var_Pop_Fields = {
+  __typename?: 'products_var_pop_fields';
+  price?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Products_Var_Samp_Fields = {
+  __typename?: 'products_var_samp_fields';
+  price?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Products_Variance_Fields = {
+  __typename?: 'products_variance_fields';
+  price?: Maybe<Scalars['Float']>;
+  quantity?: Maybe<Scalars['Float']>;
+};
+
 export type Query_Root = {
   __typename?: 'query_root';
   /** fetch data from the table: "customers" */
@@ -1002,6 +1274,12 @@ export type Query_Root = {
   orders_aggregate: Orders_Aggregate;
   /** fetch data from the table: "orders" using primary key columns */
   orders_by_pk?: Maybe<Orders>;
+  /** fetch data from the table: "products" */
+  products: Array<Products>;
+  /** fetch aggregated fields from the table: "products" */
+  products_aggregate: Products_Aggregate;
+  /** fetch data from the table: "products" using primary key columns */
+  products_by_pk?: Maybe<Products>;
 };
 
 
@@ -1073,6 +1351,29 @@ export type Query_RootOrders_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
+
+export type Query_RootProductsArgs = {
+  distinct_on?: InputMaybe<Array<Products_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Products_Order_By>>;
+  where?: InputMaybe<Products_Bool_Exp>;
+};
+
+
+export type Query_RootProducts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Products_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Products_Order_By>>;
+  where?: InputMaybe<Products_Bool_Exp>;
+};
+
+
+export type Query_RootProducts_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
 export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** fetch data from the table: "customers" */
@@ -1093,6 +1394,12 @@ export type Subscription_Root = {
   orders_aggregate: Orders_Aggregate;
   /** fetch data from the table: "orders" using primary key columns */
   orders_by_pk?: Maybe<Orders>;
+  /** fetch data from the table: "products" */
+  products: Array<Products>;
+  /** fetch aggregated fields from the table: "products" */
+  products_aggregate: Products_Aggregate;
+  /** fetch data from the table: "products" using primary key columns */
+  products_by_pk?: Maybe<Products>;
 };
 
 
@@ -1161,6 +1468,29 @@ export type Subscription_RootOrders_AggregateArgs = {
 
 
 export type Subscription_RootOrders_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootProductsArgs = {
+  distinct_on?: InputMaybe<Array<Products_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Products_Order_By>>;
+  where?: InputMaybe<Products_Bool_Exp>;
+};
+
+
+export type Subscription_RootProducts_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Products_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Products_Order_By>>;
+  where?: InputMaybe<Products_Bool_Exp>;
+};
+
+
+export type Subscription_RootProducts_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -1276,7 +1606,7 @@ export type Order_ItemsQueryVariables = Exact<{
 }>;
 
 
-export type Order_ItemsQuery = { __typename?: 'query_root', order_items: Array<{ __typename?: 'order_items', id: any, name: string, price: number, quanitity: number }> };
+export type Order_ItemsQuery = { __typename?: 'query_root', order_items: Array<{ __typename?: 'order_items', id: any, name: string, price: number, quantity: number }> };
 
 export type Order_Items_By_PkQueryVariables = Exact<{
   id: Scalars['uuid'];
@@ -1290,7 +1620,7 @@ export type Delete_Order_ItemsMutationVariables = Exact<{
 }>;
 
 
-export type Delete_Order_ItemsMutation = { __typename?: 'mutation_root', delete_order_items?: { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quanitity: number }> } | null };
+export type Delete_Order_ItemsMutation = { __typename?: 'mutation_root', delete_order_items?: { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quantity: number }> } | null };
 
 export type Delete_Order_Items_By_PkMutationVariables = Exact<{
   id: Scalars['uuid'];
@@ -1305,7 +1635,7 @@ export type Insert_Order_ItemsMutationVariables = Exact<{
 }>;
 
 
-export type Insert_Order_ItemsMutation = { __typename?: 'mutation_root', insert_order_items?: { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quanitity: number }> } | null };
+export type Insert_Order_ItemsMutation = { __typename?: 'mutation_root', insert_order_items?: { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quantity: number }> } | null };
 
 export type Insert_Order_Items_OneMutationVariables = Exact<{
   order_items: Order_Items_Insert_Input;
@@ -1322,7 +1652,7 @@ export type Update_Order_ItemsMutationVariables = Exact<{
 }>;
 
 
-export type Update_Order_ItemsMutation = { __typename?: 'mutation_root', update_order_items?: { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quanitity: number }> } | null };
+export type Update_Order_ItemsMutation = { __typename?: 'mutation_root', update_order_items?: { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quantity: number }> } | null };
 
 export type Update_Order_Items_By_PkMutationVariables = Exact<{
   _inc?: InputMaybe<Order_Items_Inc_Input>;
@@ -1333,19 +1663,19 @@ export type Update_Order_Items_By_PkMutationVariables = Exact<{
 
 export type Update_Order_Items_By_PkMutation = { __typename?: 'mutation_root', update_order_items_by_pk?: { __typename?: 'order_items', id: any, name: string } | null };
 
-export type Order_Items_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string, price: number, quanitity: number };
+export type Order_Items_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string, price: number, quantity: number };
 
 export type Order_Items_By_Pk_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string };
 
-export type Delete_Order_Items_Order_Items_Mutation_ResponseFragment = { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quanitity: number }> };
+export type Delete_Order_Items_Order_Items_Mutation_ResponseFragment = { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quantity: number }> };
 
 export type Delete_Order_Items_By_Pk_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string };
 
-export type Insert_Order_Items_Order_Items_Mutation_ResponseFragment = { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quanitity: number }> };
+export type Insert_Order_Items_Order_Items_Mutation_ResponseFragment = { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quantity: number }> };
 
 export type Insert_Order_Items_One_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string };
 
-export type Update_Order_Items_Order_Items_Mutation_ResponseFragment = { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quanitity: number }> };
+export type Update_Order_Items_Order_Items_Mutation_ResponseFragment = { __typename?: 'order_items_mutation_response', returning: Array<{ __typename?: 'order_items', id: any, name: string, orderId: any, price: number, quantity: number }> };
 
 export type Update_Order_Items_By_Pk_Order_ItemsFragment = { __typename?: 'order_items', id: any, name: string };
 
@@ -1365,7 +1695,7 @@ export type Customers_By_PkQueryVariables = Exact<{
 }>;
 
 
-export type Customers_By_PkQuery = { __typename?: 'query_root', customers_by_pk?: { __typename?: 'customers', id: any, address: string, email: string, firstName: string, lastName: string, phone: string, orders: Array<{ __typename?: 'orders', orderStatus: string, id: any, shippedDate?: any | null, orderDate: any, customerId: any, orderItems: Array<{ __typename?: 'order_items', name: string, id: any, price: number, quanitity: number }> }> } | null };
+export type Customers_By_PkQuery = { __typename?: 'query_root', customers_by_pk?: { __typename?: 'customers', id: any, address: string, email: string, firstName: string, lastName: string, phone: string, orders: Array<{ __typename?: 'orders', orderStatus: string, id: any, shippedDate?: any | null, orderDate: any, customerId: any, orderItems: Array<{ __typename?: 'order_items', name: string, id: any, price: number, quantity: number }> }> } | null };
 
 export type Delete_CustomersMutationVariables = Exact<{
   where: Customers_Bool_Exp;
@@ -1431,7 +1761,7 @@ export type Update_Customers_By_Pk_CustomersFragment = { __typename?: 'customers
 
 export type Customers_By_Pk_OrdersFragment = { __typename?: 'orders', orderStatus: string, id: any, shippedDate?: any | null, orderDate: any, customerId: any };
 
-export type Customers_By_Pk_Orders_OrderItemsFragment = { __typename?: 'order_items', name: string, id: any, price: number, quanitity: number };
+export type Customers_By_Pk_Orders_OrderItemsFragment = { __typename?: 'order_items', name: string, id: any, price: number, quantity: number };
 
 export const Orders_OrdersFragmentDoc = gql`
     fragment orders_orders on orders {
@@ -1511,7 +1841,7 @@ export const Order_Items_Order_ItemsFragmentDoc = gql`
   id
   name
   price
-  quanitity
+  quantity
 }
     `;
 export const Order_Items_By_Pk_Order_ItemsFragmentDoc = gql`
@@ -1527,7 +1857,7 @@ export const Delete_Order_Items_Order_Items_Mutation_ResponseFragmentDoc = gql`
     name
     orderId
     price
-    quanitity
+    quantity
   }
 }
     `;
@@ -1544,7 +1874,7 @@ export const Insert_Order_Items_Order_Items_Mutation_ResponseFragmentDoc = gql`
     name
     orderId
     price
-    quanitity
+    quantity
   }
 }
     `;
@@ -1561,7 +1891,7 @@ export const Update_Order_Items_Order_Items_Mutation_ResponseFragmentDoc = gql`
     name
     orderId
     price
-    quanitity
+    quantity
   }
 }
     `;
@@ -1672,7 +2002,7 @@ export const Customers_By_Pk_Orders_OrderItemsFragmentDoc = gql`
   name
   id
   price
-  quanitity
+  quantity
 }
     `;
 export const DummyDocument = gql`
