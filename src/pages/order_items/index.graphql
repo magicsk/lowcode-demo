@@ -60,7 +60,7 @@ fragment order_items_order_items on order_items {
   id
   name
   price
-  quanitity
+  quantity
 }
 
 fragment order_items_by_pk_order_items on order_items {
@@ -74,7 +74,7 @@ fragment delete_order_items_order_items_mutation_response on order_items_mutatio
     name
     orderId
     price
-    quanitity
+    quantity
   }
 }
 
@@ -89,7 +89,7 @@ fragment insert_order_items_order_items_mutation_response on order_items_mutatio
     name
     orderId
     price
-    quanitity
+    quantity
   }
 }
 
@@ -104,7 +104,7 @@ fragment update_order_items_order_items_mutation_response on order_items_mutatio
     name
     orderId
     price
-    quanitity
+    quantity
   }
 }
 
