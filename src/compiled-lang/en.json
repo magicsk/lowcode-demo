@@ -9,5 +9,6 @@
   "customers.phone": "Phone number",
   "orders.orderStatus": "Status",
   "orders.orderDate": "Date of order",
-  "orders.shippedDate": "Shipping date"
+  "orders.shippedDate": "Shipping date",
+  "customers.orders_aggregate.aggregate.count": "Orders"
 }

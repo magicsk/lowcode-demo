@@ -1856,7 +1856,7 @@ export type ProductsQueryVariables = Exact<{
 }>;
 
 
-export type ProductsQuery = { __typename?: 'query_root', products: Array<{ __typename?: 'products', id: any, name: string }> };
+export type ProductsQuery = { __typename?: 'query_root', products: Array<{ __typename?: 'products', id: any, name: string, quantity: number, price: number }> };
 
 export type Products_By_PkQueryVariables = Exact<{
   id: Scalars['uuid'];
@@ -1913,7 +1913,7 @@ export type Update_Products_By_PkMutationVariables = Exact<{
 
 export type Update_Products_By_PkMutation = { __typename?: 'mutation_root', update_products_by_pk?: { __typename?: 'products', id: any, name: string } | null };
 
-export type Products_ProductsFragment = { __typename?: 'products', id: any, name: string };
+export type Products_ProductsFragment = { __typename?: 'products', id: any, name: string, quantity: number, price: number };
 
 export type Products_By_Pk_ProductsFragment = { __typename?: 'products', id: any, name: string };
 
@@ -2100,7 +2100,7 @@ export type CustomersQueryVariables = Exact<{
 }>;
 
 
-export type CustomersQuery = { __typename?: 'query_root', customers: Array<{ __typename?: 'customers', id: any, firstName: string, lastName: string, email: string, phone: string, address: string }> };
+export type CustomersQuery = { __typename?: 'query_root', customers: Array<{ __typename?: 'customers', id: any, firstName: string, lastName: string, email: string, phone: string, address: string, orders_aggregate: { __typename?: 'orders_aggregate', aggregate?: { __typename?: 'orders_aggregate_fields', count: number } | null } }> };
 
 export type Customers_By_PkQueryVariables = Exact<{
   id: Scalars['uuid'];
@@ -2171,10 +2171,14 @@ export type Update_Customers_Customers_Mutation_ResponseFragment = { __typename?
 
 export type Update_Customers_By_Pk_CustomersFragment = { __typename?: 'customers', id: any, firstName: string, lastName: string, email: string, phone: string, address: string };
 
+export type Customers_Orders_Aggregate_AggregateFragment = { __typename?: 'orders_aggregate_fields', count: number };
+
 export const Products_ProductsFragmentDoc = gql`
     fragment products_products on products {
   id
   name
+  quantity
+  price
 }
     `;
 export const Products_By_Pk_ProductsFragmentDoc = gql`
@@ -2454,6 +2458,11 @@ export const Update_Customers_By_Pk_CustomersFragmentDoc = gql`
   email
   phone
   address
+}
+    `;
+export const Customers_Orders_Aggregate_AggregateFragmentDoc = gql`
+    fragment customers_orders_aggregate_aggregate on orders_aggregate_fields {
+  count
 }
     `;
 export const DummyDocument = gql`
@@ -2761,9 +2770,15 @@ export const CustomersDocument = gql`
     where: $where
   ) {
     ...customers_customers
+    orders_aggregate {
+      aggregate {
+        ...customers_orders_aggregate_aggregate
+      }
+    }
   }
 }
-    ${Customers_CustomersFragmentDoc}`;
+    ${Customers_CustomersFragmentDoc}
+${Customers_Orders_Aggregate_AggregateFragmentDoc}`;
 
 export function useCustomersQuery(options?: Omit<Urql.UseQueryArgs<CustomersQueryVariables>, 'query'>) {
   return Urql.useQuery<CustomersQuery>({ query: CustomersDocument, ...options });

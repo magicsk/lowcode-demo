@@ -127,6 +127,31 @@ const OrdersListView: React.FC<IOrdersTableProps> = (
       renderCell: (params: GridCellParams) =>
         params.row.shippedDate ? intl.formatDate(params.row.shippedDate) : '',
     },
+    {
+      field: 'orders.orderItems_aggregate.aggregate.count',
+      renderHeader: () => (
+        <Translate
+          entityName="orders"
+          fieldName="orderItems_aggregate.aggregate.count"
+          defaultMessage="OrderItems aggregate aggregate count"
+        />
+      ),
+      width: 150,
+      renderCell: (params: GridCellParams) =>
+        params.row.orderItems_aggregate?.aggregate?.count,
+    },
+    {
+      field: 'orders.customer.email',
+      renderHeader: () => (
+        <Translate
+          entityName="orders"
+          fieldName="customer.email"
+          defaultMessage="Customer email"
+        />
+      ),
+      width: 150,
+      renderCell: (params: GridCellParams) => params.row.customer?.email,
+    },
   ]
   const handlePage = (event: any, newPage: number) => {
     onChangePage(newPage)
