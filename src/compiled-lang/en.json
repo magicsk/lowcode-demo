@@ -3,5 +3,11 @@
     "total.customers": "TOTAL CUSTOMERS",
     "total.profit": "TOTAL PROFIT",
     "budget": "BUDGET",
-    "tasks.progress": "TASKS PROGRESS"
+    "tasks.progress": "TASKS PROGRESS",
+  "customers.firstName": "First name",
+  "customers.lastName": "Last name",
+  "customers.phone": "Phone number",
+  "orders.orderStatus": "Status",
+  "orders.orderDate": "Date of order",
+  "orders.shippedDate": "Shipping date"
 }
