@@ -149,5 +149,5 @@ fragment customers_by_pk_orders_orderItems on order_items {
   name
   id
   price
-  quanitity
+  quantity
 }
