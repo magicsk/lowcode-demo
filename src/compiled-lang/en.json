@@ -10,5 +10,12 @@
   "orders.orderStatus": "Status",
   "orders.orderDate": "Date of order",
   "orders.shippedDate": "Shipping date",
-  "customers.orders_aggregate.aggregate.count": "Orders"
+  "customers.orders_aggregate.aggregate.count": "Orders",
+  "orders.orderItems": "Items in order",
+  "orderItems": "Orders of this product",
+  "order.orderStatus": "Status",
+  "order.orderDate": "Date or order",
+  "order.shippedDate": "Shipping date",
+  "products": "Product",
+  "orders": "Order"
 }

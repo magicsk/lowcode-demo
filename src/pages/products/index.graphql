@@ -13,6 +13,11 @@ query products($distinct_on: [products_select_column!], $limit: Int, $offset: In
 query products_by_pk($id: uuid!) {
   products_by_pk(id: $id) {
     ...products_by_pk_products
+    orderItems {
+      order {
+        ...products_by_pk_orderItems_order
+      }
+    }
   }
 }
 
@@ -62,6 +67,8 @@ fragment products_products on products {
 fragment products_by_pk_products on products {
   id
   name
+  quantity
+  price
 }
 
 fragment delete_products_products_mutation_response on products_mutation_response {
@@ -104,4 +111,11 @@ fragment update_products_products_mutation_response on products_mutation_respons
 fragment update_products_by_pk_products on products {
   id
   name
+}
+
+fragment products_by_pk_orderItems_order on orders {
+  orderStatus
+  id
+  orderDate
+  shippedDate
 }

@@ -18,6 +18,12 @@ query customers($distinct_on: [customers_select_column!], $limit: Int, $offset: 
 query customers_by_pk($id: uuid!) {
   customers_by_pk(id: $id) {
     ...customers_by_pk_customers
+    orders {
+      ...customers_by_pk_orders
+      orderItems {
+        ...customers_by_pk_orders_orderItems
+      }
+    }
   }
 }
 
@@ -137,4 +143,18 @@ fragment update_customers_by_pk_customers on customers {
 
 fragment customers_orders_aggregate_aggregate on orders_aggregate_fields {
   count
+}
+
+fragment customers_by_pk_orders on orders {
+  orderStatus
+  orderDate
+  id
+  shippedDate
+}
+
+fragment customers_by_pk_orders_orderItems on order_items {
+  name
+  id
+  quantity
+  price
 }
