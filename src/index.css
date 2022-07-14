@@ -38,7 +38,7 @@ code {
   white-space: nowrap;
 }
 
-.MuiListItem-root:last-child {
+.MuiListItem-root .MuiListItemButton-root:last-child {
   display: none;
 }
 
