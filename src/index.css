@@ -38,10 +38,6 @@ code {
   white-space: nowrap;
 }
 
-.MuiListItem-root .MuiListItemButton-root:last-child {
+.MuiListItem-root .MuiListItemButton-root:nth-child(2) {
   display: none;
-}
-
-.MuiListItem-root .MuiListItemButton-root {
-  margin: 0;
 }
