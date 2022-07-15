@@ -20,10 +20,9 @@ query customers_by_pk($id: uuid!) {
     ...customers_by_pk_customers
     orders {
       ...customers_by_pk_orders
-      orderItems {
-        ...customers_by_pk_orders_orderItems
-        product {
-          ...customers_by_pk_orders_orderItems_product
+      orderItems_aggregate {
+        aggregate {
+          ...customers_by_pk_orders_orderItems_aggregate_aggregate
         }
       }
     }
@@ -117,11 +116,11 @@ fragment insert_customers_customers_mutation_response on customers_mutation_resp
 
 fragment insert_customers_one_customers on customers {
   id
+  address
+  email
   firstName
   lastName
-  email
   phone
-  address
 }
 
 fragment update_customers_customers_mutation_response on customers_mutation_response {
@@ -144,25 +143,17 @@ fragment update_customers_by_pk_customers on customers {
   address
 }
 
+fragment customers_by_pk_orders on orders {
+  orderStatus
+  id
+  orderDate
+  shippedDate
+}
+
 fragment customers_orders_aggregate_aggregate on orders_aggregate_fields {
   count
 }
 
-fragment customers_by_pk_orders on orders {
-  orderStatus
-  orderDate
-  id
-  shippedDate
-}
-
-fragment customers_by_pk_orders_orderItems on order_items {
-  name
-  id
-  quantity
-  price
-}
-
-fragment customers_by_pk_orders_orderItems_product on products {
-  quantity
-  id
+fragment customers_by_pk_orders_orderItems_aggregate_aggregate on orderItems_aggregate_fields {
+  count
 }

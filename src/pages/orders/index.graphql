@@ -7,6 +7,11 @@ query orders($distinct_on: [orders_select_column!], $limit: Int, $offset: Int, $
     where: $where
   ) {
     ...orders_orders
+    orderItems_aggregate {
+      aggregate {
+        ...orders_orderItems_aggregate_aggregate
+      }
+    }
   }
 }
 
@@ -15,8 +20,8 @@ query orders_by_pk($id: uuid!) {
     ...orders_by_pk_orders
     orderItems {
       ...orders_by_pk_orderItems
-      product {
-        ...orders_by_pk_orderItems_product
+      products {
+        ...orders_by_pk_orderItems_products
       }
     }
   }
@@ -59,15 +64,15 @@ mutation update_orders_by_pk($orders: orders_set_input, $pk_columns: orders_pk_c
 }
 
 fragment orders_orders on orders {
-  id
   orderStatus
+  id
   orderDate
   shippedDate
 }
 
 fragment orders_by_pk_orders on orders {
-  id
   orderStatus
+  id
   orderDate
   shippedDate
 }
@@ -77,14 +82,12 @@ fragment delete_orders_orders_mutation_response on orders_mutation_response {
     customerId
     id
     orderDate
-    orderStatus
     shippedDate
   }
 }
 
 fragment delete_orders_by_pk_orders on orders {
   id
-  orderStatus
   orderDate
   shippedDate
 }
@@ -94,14 +97,12 @@ fragment insert_orders_orders_mutation_response on orders_mutation_response {
     customerId
     id
     orderDate
-    orderStatus
     shippedDate
   }
 }
 
 fragment insert_orders_one_orders on orders {
   id
-  orderStatus
   orderDate
   shippedDate
 }
@@ -111,26 +112,28 @@ fragment update_orders_orders_mutation_response on orders_mutation_response {
     customerId
     id
     orderDate
-    orderStatus
     shippedDate
   }
 }
 
 fragment update_orders_by_pk_orders on orders {
   id
-  orderStatus
   orderDate
   shippedDate
 }
 
-fragment orders_by_pk_orderItems on order_items {
+fragment orders_by_pk_orderItems on orderItems {
   name
   id
   quantity
   price
 }
 
-fragment orders_by_pk_orderItems_product on products {
+fragment orders_by_pk_orderItems_products on products {
   quantity
   id
+}
+
+fragment orders_orderItems_aggregate_aggregate on orderItems_aggregate_fields {
+  count
 }

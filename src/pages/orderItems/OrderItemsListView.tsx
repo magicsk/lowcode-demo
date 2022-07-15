@@ -70,7 +70,7 @@ const OrderItemsListView: React.FC<IOrderItemsTableProps> = (
   useEffect(() => {
     if (!props?.data?.fetching) {
       controlNextButton({
-        data: props?.data?.order_items ?? [],
+        data: props?.data?.orderItems ?? [],
         countRows: countRows,
         hideNextButton: hideNextButton,
         setCountToRows: setCountToRows,
@@ -79,19 +79,19 @@ const OrderItemsListView: React.FC<IOrderItemsTableProps> = (
         pageSize: pageSize,
       })
       controlSiblings(
-        props?.data?.order_items ?? [],
+        props?.data?.orderItems ?? [],
         pageSize,
         page,
         setSiblingCount
       )
     }
-  }, [props?.data?.order_items])
+  }, [props?.data?.orderItems])
   const columns: GridColDef[] = [
     {
-      field: 'order_items.name',
+      field: 'orderItems.name',
       renderHeader: () => (
         <Translate
-          entityName="order_items"
+          entityName="orderItems"
           fieldName="name"
           defaultMessage="Name"
         />
@@ -127,7 +127,7 @@ const OrderItemsListView: React.FC<IOrderItemsTableProps> = (
   }
   return (
     <DataGrid
-      rows={props?.data?.order_items ?? []}
+      rows={props?.data?.orderItems ?? []}
       columns={columns}
       loading={loading}
       hideFooterPagination

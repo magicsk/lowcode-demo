@@ -99,30 +99,6 @@ const ProductsListView: React.FC<IProductsTableProps> = (
       width: 150,
       renderCell: (params: GridCellParams) => params.row.name,
     },
-    {
-      field: 'products.quantity',
-      renderHeader: () => (
-        <Translate
-          entityName="products"
-          fieldName="quantity"
-          defaultMessage="Quantity"
-        />
-      ),
-      width: 150,
-      renderCell: (params: GridCellParams) => params.row.quantity,
-    },
-    {
-      field: 'products.price',
-      renderHeader: () => (
-        <Translate
-          entityName="products"
-          fieldName="price"
-          defaultMessage="Price"
-        />
-      ),
-      width: 150,
-      renderCell: (params: GridCellParams) => params.row.price,
-    },
   ]
   const handlePage = (event: any, newPage: number) => {
     onChangePage(newPage)

@@ -1,0 +1,133 @@
+query orderItems($distinct_on: [orderItems_select_column!], $limit: Int, $offset: Int, $order_by: [orderItems_order_by!], $where: orderItems_bool_exp) {
+  orderItems(
+    distinct_on: $distinct_on
+    limit: $limit
+    offset: $offset
+    order_by: $order_by
+    where: $where
+  ) {
+    ...orderItems_orderItems
+  }
+}
+
+query orderItems_by_pk($id: uuid!) {
+  orderItems_by_pk(id: $id) {
+    ...orderItems_by_pk_orderItems
+    products {
+      ...orderItems_by_pk_products
+    }
+    orders {
+      ...orderItems_by_pk_orders
+    }
+  }
+}
+
+mutation delete_orderItems($where: orderItems_bool_exp!) {
+  delete_orderItems(where: $where) {
+    ...delete_orderItems_orderItems_mutation_response
+  }
+}
+
+mutation delete_orderItems_by_pk($id: uuid!) {
+  delete_orderItems_by_pk(id: $id) {
+    ...delete_orderItems_by_pk_orderItems
+  }
+}
+
+mutation insert_orderItems($orderItems: [orderItems_insert_input!]!, $on_conflict: orderItems_on_conflict) {
+  insert_orderItems(objects: $orderItems, on_conflict: $on_conflict) {
+    ...insert_orderItems_orderItems_mutation_response
+  }
+}
+
+mutation insert_orderItems_one($orderItems: orderItems_insert_input!, $on_conflict: orderItems_on_conflict) {
+  insert_orderItems_one(object: $orderItems, on_conflict: $on_conflict) {
+    ...insert_orderItems_one_orderItems
+  }
+}
+
+mutation update_orderItems($_inc: orderItems_inc_input, $orderItems: orderItems_set_input, $where: orderItems_bool_exp!) {
+  update_orderItems(_inc: $_inc, _set: $orderItems, where: $where) {
+    ...update_orderItems_orderItems_mutation_response
+  }
+}
+
+mutation update_orderItems_by_pk($_inc: orderItems_inc_input, $orderItems: orderItems_set_input, $pk_columns: orderItems_pk_columns_input!) {
+  update_orderItems_by_pk(_inc: $_inc, _set: $orderItems, pk_columns: $pk_columns) {
+    ...update_orderItems_by_pk_orderItems
+  }
+}
+
+fragment orderItems_orderItems on orderItems {
+  id
+  name
+  quantity
+  price
+}
+
+fragment orderItems_by_pk_orderItems on orderItems {
+  id
+  name
+  quantity
+  price
+}
+
+fragment delete_orderItems_orderItems_mutation_response on orderItems_mutation_response {
+  returning {
+    id
+    name
+    ordersId
+    price
+    productId
+    quantity
+  }
+}
+
+fragment delete_orderItems_by_pk_orderItems on orderItems {
+  id
+  name
+}
+
+fragment insert_orderItems_orderItems_mutation_response on orderItems_mutation_response {
+  returning {
+    id
+    name
+    ordersId
+    price
+    productId
+    quantity
+  }
+}
+
+fragment insert_orderItems_one_orderItems on orderItems {
+  id
+  name
+}
+
+fragment update_orderItems_orderItems_mutation_response on orderItems_mutation_response {
+  returning {
+    id
+    name
+    ordersId
+    price
+    productId
+    quantity
+  }
+}
+
+fragment update_orderItems_by_pk_orderItems on orderItems {
+  id
+  name
+}
+
+fragment orderItems_by_pk_products on products {
+  quantity
+  id
+}
+
+fragment orderItems_by_pk_orders on orders {
+  orderStatus
+  id
+  orderDate
+  shippedDate
+}

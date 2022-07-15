@@ -1,5 +1,5 @@
 import React from 'react'
-import { useOrder_ItemsQuery } from '../../generated/graphql'
+import { useOrderItemsQuery } from '../../generated/graphql'
 import OrderItemsListView from './OrderItemsListView'
 import {
   useFilter,
@@ -13,7 +13,7 @@ const OrderItemsListContainer: React.FC = () => {
   const locale = useLocale()
   const messagesObject = messages(locale)
   const filterProps = useFilter()
-  const [data] = useOrder_ItemsQuery({
+  const [data] = useOrderItemsQuery({
     variables: {
       where: filterProps.filter,
       limit: filterProps.pageSize + filterProps.pageSize,

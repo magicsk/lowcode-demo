@@ -147,19 +147,6 @@ const CustomersListView: React.FC<ICustomersTableProps> = (
       width: 150,
       renderCell: (params: GridCellParams) => params.row.phone,
     },
-    {
-      field: 'customers.orders_aggregate.aggregate.count',
-      renderHeader: () => (
-        <Translate
-          entityName="customers"
-          fieldName="orders_aggregate.aggregate.count"
-          defaultMessage="Orders aggregate aggregate count"
-        />
-      ),
-      width: 150,
-      renderCell: (params: GridCellParams) =>
-        params.row.orders_aggregate?.aggregate?.count,
-    },
   ]
   const handlePage = (event: any, newPage: number) => {
     onChangePage(newPage)
