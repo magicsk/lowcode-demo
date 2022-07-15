@@ -20,5 +20,6 @@
   "orders": "Order",
   "product.quantity": "Remaining quantity in warehouse",
   "orderItems.quantity": "Ordered quantity",
-  "order_items": "Order item"
+  "order_items": "Order item",
+  "products.quantity": "Quantity in warehouse"
 }

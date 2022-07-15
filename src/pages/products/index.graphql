@@ -1,0 +1,119 @@
+query products($distinct_on: [products_select_column!], $limit: Int, $offset: Int, $order_by: [products_order_by!], $where: products_bool_exp) {
+  products(
+    distinct_on: $distinct_on
+    limit: $limit
+    offset: $offset
+    order_by: $order_by
+    where: $where
+  ) {
+    ...products_products
+  }
+}
+
+query products_by_pk($id: uuid!) {
+  products_by_pk(id: $id) {
+    ...products_by_pk_products
+    orderItems {
+      ...products_by_pk_orderItems
+    }
+  }
+}
+
+mutation delete_products($where: products_bool_exp!) {
+  delete_products(where: $where) {
+    ...delete_products_products_mutation_response
+  }
+}
+
+mutation delete_products_by_pk($id: uuid!) {
+  delete_products_by_pk(id: $id) {
+    ...delete_products_by_pk_products
+  }
+}
+
+mutation insert_products($products: [products_insert_input!]!, $on_conflict: products_on_conflict) {
+  insert_products(objects: $products, on_conflict: $on_conflict) {
+    ...insert_products_products_mutation_response
+  }
+}
+
+mutation insert_products_one($products: products_insert_input!, $on_conflict: products_on_conflict) {
+  insert_products_one(object: $products, on_conflict: $on_conflict) {
+    ...insert_products_one_products
+  }
+}
+
+mutation update_products($_inc: products_inc_input, $products: products_set_input, $where: products_bool_exp!) {
+  update_products(_inc: $_inc, _set: $products, where: $where) {
+    ...update_products_products_mutation_response
+  }
+}
+
+mutation update_products_by_pk($_inc: products_inc_input, $products: products_set_input, $pk_columns: products_pk_columns_input!) {
+  update_products_by_pk(_inc: $_inc, _set: $products, pk_columns: $pk_columns) {
+    ...update_products_by_pk_products
+  }
+}
+
+fragment products_products on products {
+  id
+  name
+  quantity
+  price
+}
+
+fragment products_by_pk_products on products {
+  id
+  name
+  quantity
+  price
+}
+
+fragment delete_products_products_mutation_response on products_mutation_response {
+  returning {
+    id
+    name
+    price
+    quantity
+  }
+}
+
+fragment delete_products_by_pk_products on products {
+  id
+  name
+}
+
+fragment insert_products_products_mutation_response on products_mutation_response {
+  returning {
+    id
+    name
+    price
+    quantity
+  }
+}
+
+fragment insert_products_one_products on products {
+  id
+  name
+}
+
+fragment update_products_products_mutation_response on products_mutation_response {
+  returning {
+    id
+    name
+    price
+    quantity
+  }
+}
+
+fragment update_products_by_pk_products on products {
+  id
+  name
+}
+
+fragment products_by_pk_orderItems on orderItems {
+  name
+  id
+  quantity
+  price
+}
