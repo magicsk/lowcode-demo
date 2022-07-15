@@ -20,6 +20,11 @@ query customers_by_pk($id: uuid!) {
     ...customers_by_pk_customers
     orders {
       ...customers_by_pk_orders
+      orderItems_aggregate {
+        aggregate {
+          ...customers_by_pk_orders_orderItems_aggregate_aggregate
+        }
+      }
     }
   }
 }
@@ -146,5 +151,9 @@ fragment customers_by_pk_orders on orders {
 }
 
 fragment customers_orders_aggregate_aggregate on orders_aggregate_fields {
+  count
+}
+
+fragment customers_by_pk_orders_orderItems_aggregate_aggregate on orderItems_aggregate_fields {
   count
 }

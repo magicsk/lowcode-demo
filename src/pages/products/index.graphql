@@ -7,6 +7,11 @@ query products($distinct_on: [products_select_column!], $limit: Int, $offset: In
     where: $where
   ) {
     ...products_products
+    orderItems_aggregate {
+      aggregate {
+        ...products_orderItems_aggregate_aggregate
+      }
+    }
   }
 }
 
@@ -15,6 +20,9 @@ query products_by_pk($id: uuid!) {
     ...products_by_pk_products
     orderItems {
       ...products_by_pk_orderItems
+      orders {
+        ...products_by_pk_orderItems_orders
+      }
     }
   }
 }
@@ -116,4 +124,13 @@ fragment products_by_pk_orderItems on orderItems {
   id
   quantity
   price
+}
+
+fragment products_by_pk_orderItems_orders on orders {
+  orderStatus
+  id
+}
+
+fragment products_orderItems_aggregate_aggregate on orderItems_aggregate_fields {
+  count
 }

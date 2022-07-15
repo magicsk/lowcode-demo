@@ -16,6 +16,9 @@ query orderItems_by_pk($id: uuid!) {
     products {
       ...orderItems_by_pk_products
     }
+    orders {
+      ...orderItems_by_pk_orders
+    }
   }
 }
 
@@ -120,4 +123,11 @@ fragment update_orderItems_by_pk_orderItems on orderItems {
 fragment orderItems_by_pk_products on products {
   quantity
   id
+}
+
+fragment orderItems_by_pk_orders on orders {
+  orderStatus
+  id
+  orderDate
+  shippedDate
 }

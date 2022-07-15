@@ -21,5 +21,8 @@
   "product.quantity": "Remaining quantity in warehouse",
   "orderItems.quantity": "Ordered quantity",
   "order_items": "Order item",
-  "products.quantity": "Quantity in warehouse"
+  "products.quantity": "Quantity in warehouse",
+  "aggregate.count": "Items",
+  "orders.orderItems_aggregate.aggregate.count": "Items",
+  "products.orderItems_aggregate.aggregate.count": "Number of orders"
 }

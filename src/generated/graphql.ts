@@ -2058,14 +2058,14 @@ export type ProductsQueryVariables = Exact<{
 }>;
 
 
-export type ProductsQuery = { __typename?: 'query_root', products: Array<{ __typename?: 'products', id: any, name?: string | null, quantity?: number | null, price?: any | null }> };
+export type ProductsQuery = { __typename?: 'query_root', products: Array<{ __typename?: 'products', id: any, name?: string | null, quantity?: number | null, price?: any | null, orderItems_aggregate: { __typename?: 'orderItems_aggregate', aggregate?: { __typename?: 'orderItems_aggregate_fields', count: number } | null } }> };
 
 export type Products_By_PkQueryVariables = Exact<{
   id: Scalars['uuid'];
 }>;
 
 
-export type Products_By_PkQuery = { __typename?: 'query_root', products_by_pk?: { __typename?: 'products', id: any, name?: string | null, quantity?: number | null, price?: any | null, orderItems: Array<{ __typename?: 'orderItems', name?: string | null, id: any, quantity?: number | null, price?: any | null }> } | null };
+export type Products_By_PkQuery = { __typename?: 'query_root', products_by_pk?: { __typename?: 'products', id: any, name?: string | null, quantity?: number | null, price?: any | null, orderItems: Array<{ __typename?: 'orderItems', name?: string | null, id: any, quantity?: number | null, price?: any | null, orders?: { __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any } | null }> } | null };
 
 export type Delete_ProductsMutationVariables = Exact<{
   where: Products_Bool_Exp;
@@ -2133,6 +2133,10 @@ export type Update_Products_By_Pk_ProductsFragment = { __typename?: 'products', 
 
 export type Products_By_Pk_OrderItemsFragment = { __typename?: 'orderItems', name?: string | null, id: any, quantity?: number | null, price?: any | null };
 
+export type Products_By_Pk_OrderItems_OrdersFragment = { __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any };
+
+export type Products_OrderItems_Aggregate_AggregateFragment = { __typename?: 'orderItems_aggregate_fields', count: number };
+
 export type OrderItemsQueryVariables = Exact<{
   distinct_on?: InputMaybe<Array<OrderItems_Select_Column> | OrderItems_Select_Column>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -2149,7 +2153,7 @@ export type OrderItems_By_PkQueryVariables = Exact<{
 }>;
 
 
-export type OrderItems_By_PkQuery = { __typename?: 'query_root', orderItems_by_pk?: { __typename?: 'orderItems', id: any, name?: string | null, quantity?: number | null, price?: any | null, products?: { __typename?: 'products', quantity?: number | null, id: any } | null } | null };
+export type OrderItems_By_PkQuery = { __typename?: 'query_root', orderItems_by_pk?: { __typename?: 'orderItems', id: any, name?: string | null, quantity?: number | null, price?: any | null, products?: { __typename?: 'products', quantity?: number | null, id: any } | null, orders?: { __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null } | null } | null };
 
 export type Delete_OrderItemsMutationVariables = Exact<{
   where: OrderItems_Bool_Exp;
@@ -2217,6 +2221,8 @@ export type Update_OrderItems_By_Pk_OrderItemsFragment = { __typename?: 'orderIt
 
 export type OrderItems_By_Pk_ProductsFragment = { __typename?: 'products', quantity?: number | null, id: any };
 
+export type OrderItems_By_Pk_OrdersFragment = { __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null };
+
 export type OrdersQueryVariables = Exact<{
   distinct_on?: InputMaybe<Array<Orders_Select_Column> | Orders_Select_Column>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -2226,7 +2232,7 @@ export type OrdersQueryVariables = Exact<{
 }>;
 
 
-export type OrdersQuery = { __typename?: 'query_root', orders: Array<{ __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null }> };
+export type OrdersQuery = { __typename?: 'query_root', orders: Array<{ __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null, orderItems_aggregate: { __typename?: 'orderItems_aggregate', aggregate?: { __typename?: 'orderItems_aggregate_fields', count: number } | null } }> };
 
 export type Orders_By_PkQueryVariables = Exact<{
   id: Scalars['uuid'];
@@ -2301,6 +2307,8 @@ export type Orders_By_Pk_OrderItemsFragment = { __typename?: 'orderItems', name?
 
 export type Orders_By_Pk_OrderItems_ProductsFragment = { __typename?: 'products', quantity?: number | null, id: any };
 
+export type Orders_OrderItems_Aggregate_AggregateFragment = { __typename?: 'orderItems_aggregate_fields', count: number };
+
 export type CustomersQueryVariables = Exact<{
   distinct_on?: InputMaybe<Array<Customers_Select_Column> | Customers_Select_Column>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -2317,7 +2325,7 @@ export type Customers_By_PkQueryVariables = Exact<{
 }>;
 
 
-export type Customers_By_PkQuery = { __typename?: 'query_root', customers_by_pk?: { __typename?: 'customers', id: any, firstName?: string | null, lastName?: string | null, email?: string | null, phone?: string | null, address?: string | null, orders: Array<{ __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null }> } | null };
+export type Customers_By_PkQuery = { __typename?: 'query_root', customers_by_pk?: { __typename?: 'customers', id: any, firstName?: string | null, lastName?: string | null, email?: string | null, phone?: string | null, address?: string | null, orders: Array<{ __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null, orderItems_aggregate: { __typename?: 'orderItems_aggregate', aggregate?: { __typename?: 'orderItems_aggregate_fields', count: number } | null } }> } | null };
 
 export type Delete_CustomersMutationVariables = Exact<{
   where: Customers_Bool_Exp;
@@ -2384,6 +2392,8 @@ export type Update_Customers_By_Pk_CustomersFragment = { __typename?: 'customers
 export type Customers_By_Pk_OrdersFragment = { __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null };
 
 export type Customers_Orders_Aggregate_AggregateFragment = { __typename?: 'orders_aggregate_fields', count: number };
+
+export type Customers_By_Pk_Orders_OrderItems_Aggregate_AggregateFragment = { __typename?: 'orderItems_aggregate_fields', count: number };
 
 export const Products_ProductsFragmentDoc = gql`
     fragment products_products on products {
@@ -2455,6 +2465,17 @@ export const Products_By_Pk_OrderItemsFragmentDoc = gql`
   id
   quantity
   price
+}
+    `;
+export const Products_By_Pk_OrderItems_OrdersFragmentDoc = gql`
+    fragment products_by_pk_orderItems_orders on orders {
+  orderStatus
+  id
+}
+    `;
+export const Products_OrderItems_Aggregate_AggregateFragmentDoc = gql`
+    fragment products_orderItems_aggregate_aggregate on orderItems_aggregate_fields {
+  count
 }
     `;
 export const OrderItems_OrderItemsFragmentDoc = gql`
@@ -2531,6 +2552,14 @@ export const OrderItems_By_Pk_ProductsFragmentDoc = gql`
     fragment orderItems_by_pk_products on products {
   quantity
   id
+}
+    `;
+export const OrderItems_By_Pk_OrdersFragmentDoc = gql`
+    fragment orderItems_by_pk_orders on orders {
+  orderStatus
+  id
+  orderDate
+  shippedDate
 }
     `;
 export const Orders_OrdersFragmentDoc = gql`
@@ -2612,6 +2641,11 @@ export const Orders_By_Pk_OrderItems_ProductsFragmentDoc = gql`
     fragment orders_by_pk_orderItems_products on products {
   quantity
   id
+}
+    `;
+export const Orders_OrderItems_Aggregate_AggregateFragmentDoc = gql`
+    fragment orders_orderItems_aggregate_aggregate on orderItems_aggregate_fields {
+  count
 }
     `;
 export const Customers_CustomersFragmentDoc = gql`
@@ -2713,6 +2747,11 @@ export const Customers_Orders_Aggregate_AggregateFragmentDoc = gql`
   count
 }
     `;
+export const Customers_By_Pk_Orders_OrderItems_Aggregate_AggregateFragmentDoc = gql`
+    fragment customers_by_pk_orders_orderItems_aggregate_aggregate on orderItems_aggregate_fields {
+  count
+}
+    `;
 export const DummyDocument = gql`
     query dummy {
   __typename
@@ -2732,9 +2771,15 @@ export const ProductsDocument = gql`
     where: $where
   ) {
     ...products_products
+    orderItems_aggregate {
+      aggregate {
+        ...products_orderItems_aggregate_aggregate
+      }
+    }
   }
 }
-    ${Products_ProductsFragmentDoc}`;
+    ${Products_ProductsFragmentDoc}
+${Products_OrderItems_Aggregate_AggregateFragmentDoc}`;
 
 export function useProductsQuery(options?: Omit<Urql.UseQueryArgs<ProductsQueryVariables>, 'query'>) {
   return Urql.useQuery<ProductsQuery>({ query: ProductsDocument, ...options });
@@ -2745,11 +2790,15 @@ export const Products_By_PkDocument = gql`
     ...products_by_pk_products
     orderItems {
       ...products_by_pk_orderItems
+      orders {
+        ...products_by_pk_orderItems_orders
+      }
     }
   }
 }
     ${Products_By_Pk_ProductsFragmentDoc}
-${Products_By_Pk_OrderItemsFragmentDoc}`;
+${Products_By_Pk_OrderItemsFragmentDoc}
+${Products_By_Pk_OrderItems_OrdersFragmentDoc}`;
 
 export function useProducts_By_PkQuery(options: Omit<Urql.UseQueryArgs<Products_By_PkQueryVariables>, 'query'>) {
   return Urql.useQuery<Products_By_PkQuery>({ query: Products_By_PkDocument, ...options });
@@ -2844,10 +2893,14 @@ export const OrderItems_By_PkDocument = gql`
     products {
       ...orderItems_by_pk_products
     }
+    orders {
+      ...orderItems_by_pk_orders
+    }
   }
 }
     ${OrderItems_By_Pk_OrderItemsFragmentDoc}
-${OrderItems_By_Pk_ProductsFragmentDoc}`;
+${OrderItems_By_Pk_ProductsFragmentDoc}
+${OrderItems_By_Pk_OrdersFragmentDoc}`;
 
 export function useOrderItems_By_PkQuery(options: Omit<Urql.UseQueryArgs<OrderItems_By_PkQueryVariables>, 'query'>) {
   return Urql.useQuery<OrderItems_By_PkQuery>({ query: OrderItems_By_PkDocument, ...options });
@@ -2928,9 +2981,15 @@ export const OrdersDocument = gql`
     where: $where
   ) {
     ...orders_orders
+    orderItems_aggregate {
+      aggregate {
+        ...orders_orderItems_aggregate_aggregate
+      }
+    }
   }
 }
-    ${Orders_OrdersFragmentDoc}`;
+    ${Orders_OrdersFragmentDoc}
+${Orders_OrderItems_Aggregate_AggregateFragmentDoc}`;
 
 export function useOrdersQuery(options?: Omit<Urql.UseQueryArgs<OrdersQueryVariables>, 'query'>) {
   return Urql.useQuery<OrdersQuery>({ query: OrdersDocument, ...options });
@@ -3049,11 +3108,17 @@ export const Customers_By_PkDocument = gql`
     ...customers_by_pk_customers
     orders {
       ...customers_by_pk_orders
+      orderItems_aggregate {
+        aggregate {
+          ...customers_by_pk_orders_orderItems_aggregate_aggregate
+        }
+      }
     }
   }
 }
     ${Customers_By_Pk_CustomersFragmentDoc}
-${Customers_By_Pk_OrdersFragmentDoc}`;
+${Customers_By_Pk_OrdersFragmentDoc}
+${Customers_By_Pk_Orders_OrderItems_Aggregate_AggregateFragmentDoc}`;
 
 export function useCustomers_By_PkQuery(options: Omit<Urql.UseQueryArgs<Customers_By_PkQueryVariables>, 'query'>) {
   return Urql.useQuery<Customers_By_PkQuery>({ query: Customers_By_PkDocument, ...options });

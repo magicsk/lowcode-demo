@@ -7,6 +7,11 @@ query orders($distinct_on: [orders_select_column!], $limit: Int, $offset: Int, $
     where: $where
   ) {
     ...orders_orders
+    orderItems_aggregate {
+      aggregate {
+        ...orders_orderItems_aggregate_aggregate
+      }
+    }
   }
 }
 
@@ -127,4 +132,8 @@ fragment orders_by_pk_orderItems on orderItems {
 fragment orders_by_pk_orderItems_products on products {
   quantity
   id
+}
+
+fragment orders_orderItems_aggregate_aggregate on orderItems_aggregate_fields {
+  count
 }
