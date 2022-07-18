@@ -15,7 +15,29 @@ export type Scalars = {
   Float: number;
   date: any;
   money: any;
+  time: any;
+  timestamp: any;
+  timestamptz: any;
+  timetz: any;
   uuid: any;
+};
+
+export type Boolean_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'. */
+export type Boolean_Comparison_Exp = {
+  _cast?: InputMaybe<Boolean_Cast_Exp>;
+  _eq?: InputMaybe<Scalars['Boolean']>;
+  _gt?: InputMaybe<Scalars['Boolean']>;
+  _gte?: InputMaybe<Scalars['Boolean']>;
+  _in?: InputMaybe<Array<Scalars['Boolean']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['Boolean']>;
+  _lte?: InputMaybe<Scalars['Boolean']>;
+  _neq?: InputMaybe<Scalars['Boolean']>;
+  _nin?: InputMaybe<Array<Scalars['Boolean']>>;
 };
 
 export type Int_Cast_Exp = {
@@ -963,9 +985,9 @@ export enum Order_By {
 /** List of orders */
 export type Orders = {
   __typename?: 'orders';
-  /** An object relationship */
-  customer?: Maybe<Customers>;
   customerId?: Maybe<Scalars['uuid']>;
+  /** An object relationship */
+  customers?: Maybe<Customers>;
   id: Scalars['uuid'];
   orderDate?: Maybe<Scalars['date']>;
   /** An array relationship */
@@ -1039,8 +1061,8 @@ export type Orders_Bool_Exp = {
   _and?: InputMaybe<Array<Orders_Bool_Exp>>;
   _not?: InputMaybe<Orders_Bool_Exp>;
   _or?: InputMaybe<Array<Orders_Bool_Exp>>;
-  customer?: InputMaybe<Customers_Bool_Exp>;
   customerId?: InputMaybe<Uuid_Comparison_Exp>;
+  customers?: InputMaybe<Customers_Bool_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   orderDate?: InputMaybe<Date_Comparison_Exp>;
   orderItems?: InputMaybe<OrderItems_Bool_Exp>;
@@ -1057,8 +1079,8 @@ export enum Orders_Constraint {
 
 /** input type for inserting data into table "orders" */
 export type Orders_Insert_Input = {
-  customer?: InputMaybe<Customers_Obj_Rel_Insert_Input>;
   customerId?: InputMaybe<Scalars['uuid']>;
+  customers?: InputMaybe<Customers_Obj_Rel_Insert_Input>;
   id?: InputMaybe<Scalars['uuid']>;
   orderDate?: InputMaybe<Scalars['date']>;
   orderItems?: InputMaybe<OrderItems_Arr_Rel_Insert_Input>;
@@ -1126,8 +1148,8 @@ export type Orders_On_Conflict = {
 
 /** Ordering options when selecting data from "orders". */
 export type Orders_Order_By = {
-  customer?: InputMaybe<Customers_Order_By>;
   customerId?: InputMaybe<Order_By>;
+  customers?: InputMaybe<Customers_Order_By>;
   id?: InputMaybe<Order_By>;
   orderDate?: InputMaybe<Order_By>;
   orderItems_aggregate?: InputMaybe<OrderItems_Aggregate_Order_By>;
@@ -1927,7 +1949,13 @@ export type Subscription_RootTest_By_PkArgs = {
 /** columns and relationships of "test" */
 export type Test = {
   __typename?: 'test';
+  checkbox_test: Scalars['Boolean'];
+  date_test: Scalars['date'];
   id: Scalars['uuid'];
+  time_test: Scalars['time'];
+  timestamp_test: Scalars['timestamp'];
+  timestamptz_test: Scalars['timestamptz'];
+  timetz_test: Scalars['timetz'];
 };
 
 /** aggregated selection of "test" */
@@ -1957,7 +1985,13 @@ export type Test_Bool_Exp = {
   _and?: InputMaybe<Array<Test_Bool_Exp>>;
   _not?: InputMaybe<Test_Bool_Exp>;
   _or?: InputMaybe<Array<Test_Bool_Exp>>;
+  checkbox_test?: InputMaybe<Boolean_Comparison_Exp>;
+  date_test?: InputMaybe<Date_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
+  time_test?: InputMaybe<Time_Comparison_Exp>;
+  timestamp_test?: InputMaybe<Timestamp_Comparison_Exp>;
+  timestamptz_test?: InputMaybe<Timestamptz_Comparison_Exp>;
+  timetz_test?: InputMaybe<Timetz_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "test" */
@@ -1968,19 +2002,33 @@ export enum Test_Constraint {
 
 /** input type for inserting data into table "test" */
 export type Test_Insert_Input = {
+  checkbox_test?: InputMaybe<Scalars['Boolean']>;
+  date_test?: InputMaybe<Scalars['date']>;
   id?: InputMaybe<Scalars['uuid']>;
+  time_test?: InputMaybe<Scalars['time']>;
+  timestamp_test?: InputMaybe<Scalars['timestamp']>;
+  timestamptz_test?: InputMaybe<Scalars['timestamptz']>;
+  timetz_test?: InputMaybe<Scalars['timetz']>;
 };
 
 /** aggregate max on columns */
 export type Test_Max_Fields = {
   __typename?: 'test_max_fields';
+  date_test?: Maybe<Scalars['date']>;
   id?: Maybe<Scalars['uuid']>;
+  timestamp_test?: Maybe<Scalars['timestamp']>;
+  timestamptz_test?: Maybe<Scalars['timestamptz']>;
+  timetz_test?: Maybe<Scalars['timetz']>;
 };
 
 /** aggregate min on columns */
 export type Test_Min_Fields = {
   __typename?: 'test_min_fields';
+  date_test?: Maybe<Scalars['date']>;
   id?: Maybe<Scalars['uuid']>;
+  timestamp_test?: Maybe<Scalars['timestamp']>;
+  timestamptz_test?: Maybe<Scalars['timestamptz']>;
+  timetz_test?: Maybe<Scalars['timetz']>;
 };
 
 /** response of any mutation on the table "test" */
@@ -2001,7 +2049,13 @@ export type Test_On_Conflict = {
 
 /** Ordering options when selecting data from "test". */
 export type Test_Order_By = {
+  checkbox_test?: InputMaybe<Order_By>;
+  date_test?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  time_test?: InputMaybe<Order_By>;
+  timestamp_test?: InputMaybe<Order_By>;
+  timestamptz_test?: InputMaybe<Order_By>;
+  timetz_test?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: test */
@@ -2012,19 +2066,116 @@ export type Test_Pk_Columns_Input = {
 /** select columns of table "test" */
 export enum Test_Select_Column {
   /** column name */
-  Id = 'id'
+  CheckboxTest = 'checkbox_test',
+  /** column name */
+  DateTest = 'date_test',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  TimeTest = 'time_test',
+  /** column name */
+  TimestampTest = 'timestamp_test',
+  /** column name */
+  TimestamptzTest = 'timestamptz_test',
+  /** column name */
+  TimetzTest = 'timetz_test'
 }
 
 /** input type for updating data in table "test" */
 export type Test_Set_Input = {
+  checkbox_test?: InputMaybe<Scalars['Boolean']>;
+  date_test?: InputMaybe<Scalars['date']>;
   id?: InputMaybe<Scalars['uuid']>;
+  time_test?: InputMaybe<Scalars['time']>;
+  timestamp_test?: InputMaybe<Scalars['timestamp']>;
+  timestamptz_test?: InputMaybe<Scalars['timestamptz']>;
+  timetz_test?: InputMaybe<Scalars['timetz']>;
 };
 
 /** update columns of table "test" */
 export enum Test_Update_Column {
   /** column name */
-  Id = 'id'
+  CheckboxTest = 'checkbox_test',
+  /** column name */
+  DateTest = 'date_test',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  TimeTest = 'time_test',
+  /** column name */
+  TimestampTest = 'timestamp_test',
+  /** column name */
+  TimestamptzTest = 'timestamptz_test',
+  /** column name */
+  TimetzTest = 'timetz_test'
 }
+
+/** Boolean expression to compare columns of type "time". All fields are combined with logical 'AND'. */
+export type Time_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['time']>;
+  _gt?: InputMaybe<Scalars['time']>;
+  _gte?: InputMaybe<Scalars['time']>;
+  _in?: InputMaybe<Array<Scalars['time']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['time']>;
+  _lte?: InputMaybe<Scalars['time']>;
+  _neq?: InputMaybe<Scalars['time']>;
+  _nin?: InputMaybe<Array<Scalars['time']>>;
+};
+
+export type Timestamp_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Boolean expression to compare columns of type "timestamp". All fields are combined with logical 'AND'. */
+export type Timestamp_Comparison_Exp = {
+  _cast?: InputMaybe<Timestamp_Cast_Exp>;
+  _eq?: InputMaybe<Scalars['timestamp']>;
+  _gt?: InputMaybe<Scalars['timestamp']>;
+  _gte?: InputMaybe<Scalars['timestamp']>;
+  _in?: InputMaybe<Array<Scalars['timestamp']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['timestamp']>;
+  _lte?: InputMaybe<Scalars['timestamp']>;
+  _neq?: InputMaybe<Scalars['timestamp']>;
+  _nin?: InputMaybe<Array<Scalars['timestamp']>>;
+};
+
+export type Timestamptz_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
+export type Timestamptz_Comparison_Exp = {
+  _cast?: InputMaybe<Timestamptz_Cast_Exp>;
+  _eq?: InputMaybe<Scalars['timestamptz']>;
+  _gt?: InputMaybe<Scalars['timestamptz']>;
+  _gte?: InputMaybe<Scalars['timestamptz']>;
+  _in?: InputMaybe<Array<Scalars['timestamptz']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['timestamptz']>;
+  _lte?: InputMaybe<Scalars['timestamptz']>;
+  _neq?: InputMaybe<Scalars['timestamptz']>;
+  _nin?: InputMaybe<Array<Scalars['timestamptz']>>;
+};
+
+export type Timetz_Cast_Exp = {
+  String?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Boolean expression to compare columns of type "timetz". All fields are combined with logical 'AND'. */
+export type Timetz_Comparison_Exp = {
+  _cast?: InputMaybe<Timetz_Cast_Exp>;
+  _eq?: InputMaybe<Scalars['timetz']>;
+  _gt?: InputMaybe<Scalars['timetz']>;
+  _gte?: InputMaybe<Scalars['timetz']>;
+  _in?: InputMaybe<Array<Scalars['timetz']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['timetz']>;
+  _lte?: InputMaybe<Scalars['timetz']>;
+  _neq?: InputMaybe<Scalars['timetz']>;
+  _nin?: InputMaybe<Array<Scalars['timetz']>>;
+};
 
 export type Uuid_Cast_Exp = {
   String?: InputMaybe<String_Comparison_Exp>;
@@ -2137,6 +2288,94 @@ export type Products_By_Pk_OrderItems_OrdersFragment = { __typename?: 'orders', 
 
 export type Products_OrderItems_Aggregate_AggregateFragment = { __typename?: 'orderItems_aggregate_fields', count: number };
 
+export type OrdersQueryVariables = Exact<{
+  distinct_on?: InputMaybe<Array<Orders_Select_Column> | Orders_Select_Column>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Orders_Order_By> | Orders_Order_By>;
+  where?: InputMaybe<Orders_Bool_Exp>;
+}>;
+
+
+export type OrdersQuery = { __typename?: 'query_root', orders: Array<{ __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null, orderItems_aggregate: { __typename?: 'orderItems_aggregate', aggregate?: { __typename?: 'orderItems_aggregate_fields', count: number } | null } }> };
+
+export type Orders_By_PkQueryVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type Orders_By_PkQuery = { __typename?: 'query_root', orders_by_pk?: { __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null, orderItems: Array<{ __typename?: 'orderItems', name?: string | null, id: any, quantity?: number | null, price?: any | null, products?: { __typename?: 'products', quantity?: number | null, id: any } | null }>, customers?: { __typename?: 'customers', id: any, firstName?: string | null, lastName?: string | null, email?: string | null, phone?: string | null, address?: string | null } | null } | null };
+
+export type Delete_OrdersMutationVariables = Exact<{
+  where: Orders_Bool_Exp;
+}>;
+
+
+export type Delete_OrdersMutation = { __typename?: 'mutation_root', delete_orders?: { __typename?: 'orders_mutation_response', returning: Array<{ __typename?: 'orders', customerId?: any | null, id: any, orderDate?: any | null, shippedDate?: any | null }> } | null };
+
+export type Delete_Orders_By_PkMutationVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type Delete_Orders_By_PkMutation = { __typename?: 'mutation_root', delete_orders_by_pk?: { __typename?: 'orders', id: any, orderDate?: any | null, shippedDate?: any | null } | null };
+
+export type Insert_OrdersMutationVariables = Exact<{
+  orders: Array<Orders_Insert_Input> | Orders_Insert_Input;
+  on_conflict?: InputMaybe<Orders_On_Conflict>;
+}>;
+
+
+export type Insert_OrdersMutation = { __typename?: 'mutation_root', insert_orders?: { __typename?: 'orders_mutation_response', returning: Array<{ __typename?: 'orders', customerId?: any | null, id: any, orderDate?: any | null, shippedDate?: any | null }> } | null };
+
+export type Insert_Orders_OneMutationVariables = Exact<{
+  orders: Orders_Insert_Input;
+  on_conflict?: InputMaybe<Orders_On_Conflict>;
+}>;
+
+
+export type Insert_Orders_OneMutation = { __typename?: 'mutation_root', insert_orders_one?: { __typename?: 'orders', id: any, orderDate?: any | null, shippedDate?: any | null } | null };
+
+export type Update_OrdersMutationVariables = Exact<{
+  orders?: InputMaybe<Orders_Set_Input>;
+  where: Orders_Bool_Exp;
+}>;
+
+
+export type Update_OrdersMutation = { __typename?: 'mutation_root', update_orders?: { __typename?: 'orders_mutation_response', returning: Array<{ __typename?: 'orders', customerId?: any | null, id: any, orderDate?: any | null, shippedDate?: any | null }> } | null };
+
+export type Update_Orders_By_PkMutationVariables = Exact<{
+  orders?: InputMaybe<Orders_Set_Input>;
+  pk_columns: Orders_Pk_Columns_Input;
+}>;
+
+
+export type Update_Orders_By_PkMutation = { __typename?: 'mutation_root', update_orders_by_pk?: { __typename?: 'orders', id: any, orderDate?: any | null, shippedDate?: any | null } | null };
+
+export type Orders_OrdersFragment = { __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null };
+
+export type Orders_By_Pk_OrdersFragment = { __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null };
+
+export type Delete_Orders_Orders_Mutation_ResponseFragment = { __typename?: 'orders_mutation_response', returning: Array<{ __typename?: 'orders', customerId?: any | null, id: any, orderDate?: any | null, shippedDate?: any | null }> };
+
+export type Delete_Orders_By_Pk_OrdersFragment = { __typename?: 'orders', id: any, orderDate?: any | null, shippedDate?: any | null };
+
+export type Insert_Orders_Orders_Mutation_ResponseFragment = { __typename?: 'orders_mutation_response', returning: Array<{ __typename?: 'orders', customerId?: any | null, id: any, orderDate?: any | null, shippedDate?: any | null }> };
+
+export type Insert_Orders_One_OrdersFragment = { __typename?: 'orders', id: any, orderDate?: any | null, shippedDate?: any | null };
+
+export type Update_Orders_Orders_Mutation_ResponseFragment = { __typename?: 'orders_mutation_response', returning: Array<{ __typename?: 'orders', customerId?: any | null, id: any, orderDate?: any | null, shippedDate?: any | null }> };
+
+export type Update_Orders_By_Pk_OrdersFragment = { __typename?: 'orders', id: any, orderDate?: any | null, shippedDate?: any | null };
+
+export type Orders_By_Pk_OrderItemsFragment = { __typename?: 'orderItems', name?: string | null, id: any, quantity?: number | null, price?: any | null };
+
+export type Orders_By_Pk_OrderItems_ProductsFragment = { __typename?: 'products', quantity?: number | null, id: any };
+
+export type Orders_OrderItems_Aggregate_AggregateFragment = { __typename?: 'orderItems_aggregate_fields', count: number };
+
+export type Orders_By_Pk_CustomersFragment = { __typename?: 'customers', id: any, firstName?: string | null, lastName?: string | null, email?: string | null, phone?: string | null, address?: string | null };
+
 export type OrderItemsQueryVariables = Exact<{
   distinct_on?: InputMaybe<Array<OrderItems_Select_Column> | OrderItems_Select_Column>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -2222,92 +2461,6 @@ export type Update_OrderItems_By_Pk_OrderItemsFragment = { __typename?: 'orderIt
 export type OrderItems_By_Pk_ProductsFragment = { __typename?: 'products', quantity?: number | null, id: any };
 
 export type OrderItems_By_Pk_OrdersFragment = { __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null };
-
-export type OrdersQueryVariables = Exact<{
-  distinct_on?: InputMaybe<Array<Orders_Select_Column> | Orders_Select_Column>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Orders_Order_By> | Orders_Order_By>;
-  where?: InputMaybe<Orders_Bool_Exp>;
-}>;
-
-
-export type OrdersQuery = { __typename?: 'query_root', orders: Array<{ __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null, orderItems_aggregate: { __typename?: 'orderItems_aggregate', aggregate?: { __typename?: 'orderItems_aggregate_fields', count: number } | null } }> };
-
-export type Orders_By_PkQueryVariables = Exact<{
-  id: Scalars['uuid'];
-}>;
-
-
-export type Orders_By_PkQuery = { __typename?: 'query_root', orders_by_pk?: { __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null, orderItems: Array<{ __typename?: 'orderItems', name?: string | null, id: any, quantity?: number | null, price?: any | null, products?: { __typename?: 'products', quantity?: number | null, id: any } | null }> } | null };
-
-export type Delete_OrdersMutationVariables = Exact<{
-  where: Orders_Bool_Exp;
-}>;
-
-
-export type Delete_OrdersMutation = { __typename?: 'mutation_root', delete_orders?: { __typename?: 'orders_mutation_response', returning: Array<{ __typename?: 'orders', customerId?: any | null, id: any, orderDate?: any | null, shippedDate?: any | null }> } | null };
-
-export type Delete_Orders_By_PkMutationVariables = Exact<{
-  id: Scalars['uuid'];
-}>;
-
-
-export type Delete_Orders_By_PkMutation = { __typename?: 'mutation_root', delete_orders_by_pk?: { __typename?: 'orders', id: any, orderDate?: any | null, shippedDate?: any | null } | null };
-
-export type Insert_OrdersMutationVariables = Exact<{
-  orders: Array<Orders_Insert_Input> | Orders_Insert_Input;
-  on_conflict?: InputMaybe<Orders_On_Conflict>;
-}>;
-
-
-export type Insert_OrdersMutation = { __typename?: 'mutation_root', insert_orders?: { __typename?: 'orders_mutation_response', returning: Array<{ __typename?: 'orders', customerId?: any | null, id: any, orderDate?: any | null, shippedDate?: any | null }> } | null };
-
-export type Insert_Orders_OneMutationVariables = Exact<{
-  orders: Orders_Insert_Input;
-  on_conflict?: InputMaybe<Orders_On_Conflict>;
-}>;
-
-
-export type Insert_Orders_OneMutation = { __typename?: 'mutation_root', insert_orders_one?: { __typename?: 'orders', id: any, orderDate?: any | null, shippedDate?: any | null } | null };
-
-export type Update_OrdersMutationVariables = Exact<{
-  orders?: InputMaybe<Orders_Set_Input>;
-  where: Orders_Bool_Exp;
-}>;
-
-
-export type Update_OrdersMutation = { __typename?: 'mutation_root', update_orders?: { __typename?: 'orders_mutation_response', returning: Array<{ __typename?: 'orders', customerId?: any | null, id: any, orderDate?: any | null, shippedDate?: any | null }> } | null };
-
-export type Update_Orders_By_PkMutationVariables = Exact<{
-  orders?: InputMaybe<Orders_Set_Input>;
-  pk_columns: Orders_Pk_Columns_Input;
-}>;
-
-
-export type Update_Orders_By_PkMutation = { __typename?: 'mutation_root', update_orders_by_pk?: { __typename?: 'orders', id: any, orderDate?: any | null, shippedDate?: any | null } | null };
-
-export type Orders_OrdersFragment = { __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null };
-
-export type Orders_By_Pk_OrdersFragment = { __typename?: 'orders', orderStatus?: Status_Types_Enum | null, id: any, orderDate?: any | null, shippedDate?: any | null };
-
-export type Delete_Orders_Orders_Mutation_ResponseFragment = { __typename?: 'orders_mutation_response', returning: Array<{ __typename?: 'orders', customerId?: any | null, id: any, orderDate?: any | null, shippedDate?: any | null }> };
-
-export type Delete_Orders_By_Pk_OrdersFragment = { __typename?: 'orders', id: any, orderDate?: any | null, shippedDate?: any | null };
-
-export type Insert_Orders_Orders_Mutation_ResponseFragment = { __typename?: 'orders_mutation_response', returning: Array<{ __typename?: 'orders', customerId?: any | null, id: any, orderDate?: any | null, shippedDate?: any | null }> };
-
-export type Insert_Orders_One_OrdersFragment = { __typename?: 'orders', id: any, orderDate?: any | null, shippedDate?: any | null };
-
-export type Update_Orders_Orders_Mutation_ResponseFragment = { __typename?: 'orders_mutation_response', returning: Array<{ __typename?: 'orders', customerId?: any | null, id: any, orderDate?: any | null, shippedDate?: any | null }> };
-
-export type Update_Orders_By_Pk_OrdersFragment = { __typename?: 'orders', id: any, orderDate?: any | null, shippedDate?: any | null };
-
-export type Orders_By_Pk_OrderItemsFragment = { __typename?: 'orderItems', name?: string | null, id: any, quantity?: number | null, price?: any | null };
-
-export type Orders_By_Pk_OrderItems_ProductsFragment = { __typename?: 'products', quantity?: number | null, id: any };
-
-export type Orders_OrderItems_Aggregate_AggregateFragment = { __typename?: 'orderItems_aggregate_fields', count: number };
 
 export type CustomersQueryVariables = Exact<{
   distinct_on?: InputMaybe<Array<Customers_Select_Column> | Customers_Select_Column>;
@@ -2478,90 +2631,6 @@ export const Products_OrderItems_Aggregate_AggregateFragmentDoc = gql`
   count
 }
     `;
-export const OrderItems_OrderItemsFragmentDoc = gql`
-    fragment orderItems_orderItems on orderItems {
-  id
-  name
-  quantity
-  price
-}
-    `;
-export const OrderItems_By_Pk_OrderItemsFragmentDoc = gql`
-    fragment orderItems_by_pk_orderItems on orderItems {
-  id
-  name
-  quantity
-  price
-}
-    `;
-export const Delete_OrderItems_OrderItems_Mutation_ResponseFragmentDoc = gql`
-    fragment delete_orderItems_orderItems_mutation_response on orderItems_mutation_response {
-  returning {
-    id
-    name
-    ordersId
-    price
-    productId
-    quantity
-  }
-}
-    `;
-export const Delete_OrderItems_By_Pk_OrderItemsFragmentDoc = gql`
-    fragment delete_orderItems_by_pk_orderItems on orderItems {
-  id
-  name
-}
-    `;
-export const Insert_OrderItems_OrderItems_Mutation_ResponseFragmentDoc = gql`
-    fragment insert_orderItems_orderItems_mutation_response on orderItems_mutation_response {
-  returning {
-    id
-    name
-    ordersId
-    price
-    productId
-    quantity
-  }
-}
-    `;
-export const Insert_OrderItems_One_OrderItemsFragmentDoc = gql`
-    fragment insert_orderItems_one_orderItems on orderItems {
-  id
-  name
-}
-    `;
-export const Update_OrderItems_OrderItems_Mutation_ResponseFragmentDoc = gql`
-    fragment update_orderItems_orderItems_mutation_response on orderItems_mutation_response {
-  returning {
-    id
-    name
-    ordersId
-    price
-    productId
-    quantity
-  }
-}
-    `;
-export const Update_OrderItems_By_Pk_OrderItemsFragmentDoc = gql`
-    fragment update_orderItems_by_pk_orderItems on orderItems {
-  id
-  name
-}
-    `;
-export const OrderItems_By_Pk_ProductsFragmentDoc = gql`
-    fragment orderItems_by_pk_products on products {
-  quantity
-  id
-}
-    `;
-export const OrderItems_By_Pk_OrdersFragmentDoc = gql`
-    fragment orderItems_by_pk_orders on orders {
-  orderStatus
-  id
-  orderDate
-  shippedDate
-}
-    `;
 export const Orders_OrdersFragmentDoc = gql`
     fragment orders_orders on orders {
   orderStatus
@@ -2646,6 +2715,100 @@ export const Orders_By_Pk_OrderItems_ProductsFragmentDoc = gql`
 export const Orders_OrderItems_Aggregate_AggregateFragmentDoc = gql`
     fragment orders_orderItems_aggregate_aggregate on orderItems_aggregate_fields {
   count
+}
+    `;
+export const Orders_By_Pk_CustomersFragmentDoc = gql`
+    fragment orders_by_pk_customers on customers {
+  id
+  firstName
+  lastName
+  email
+  phone
+  address
+}
+    `;
+export const OrderItems_OrderItemsFragmentDoc = gql`
+    fragment orderItems_orderItems on orderItems {
+  id
+  name
+  quantity
+  price
+}
+    `;
+export const OrderItems_By_Pk_OrderItemsFragmentDoc = gql`
+    fragment orderItems_by_pk_orderItems on orderItems {
+  id
+  name
+  quantity
+  price
+}
+    `;
+export const Delete_OrderItems_OrderItems_Mutation_ResponseFragmentDoc = gql`
+    fragment delete_orderItems_orderItems_mutation_response on orderItems_mutation_response {
+  returning {
+    id
+    name
+    ordersId
+    price
+    productId
+    quantity
+  }
+}
+    `;
+export const Delete_OrderItems_By_Pk_OrderItemsFragmentDoc = gql`
+    fragment delete_orderItems_by_pk_orderItems on orderItems {
+  id
+  name
+}
+    `;
+export const Insert_OrderItems_OrderItems_Mutation_ResponseFragmentDoc = gql`
+    fragment insert_orderItems_orderItems_mutation_response on orderItems_mutation_response {
+  returning {
+    id
+    name
+    ordersId
+    price
+    productId
+    quantity
+  }
+}
+    `;
+export const Insert_OrderItems_One_OrderItemsFragmentDoc = gql`
+    fragment insert_orderItems_one_orderItems on orderItems {
+  id
+  name
+}
+    `;
+export const Update_OrderItems_OrderItems_Mutation_ResponseFragmentDoc = gql`
+    fragment update_orderItems_orderItems_mutation_response on orderItems_mutation_response {
+  returning {
+    id
+    name
+    ordersId
+    price
+    productId
+    quantity
+  }
+}
+    `;
+export const Update_OrderItems_By_Pk_OrderItemsFragmentDoc = gql`
+    fragment update_orderItems_by_pk_orderItems on orderItems {
+  id
+  name
+}
+    `;
+export const OrderItems_By_Pk_ProductsFragmentDoc = gql`
+    fragment orderItems_by_pk_products on products {
+  quantity
+  id
+}
+    `;
+export const OrderItems_By_Pk_OrdersFragmentDoc = gql`
+    fragment orderItems_by_pk_orders on orders {
+  orderStatus
+  id
+  orderDate
+  shippedDate
 }
     `;
 export const Customers_CustomersFragmentDoc = gql`
@@ -2869,6 +3032,118 @@ export const Update_Products_By_PkDocument = gql`
 export function useUpdate_Products_By_PkMutation() {
   return Urql.useMutation<Update_Products_By_PkMutation, Update_Products_By_PkMutationVariables>(Update_Products_By_PkDocument);
 };
+export const OrdersDocument = gql`
+    query orders($distinct_on: [orders_select_column!], $limit: Int, $offset: Int, $order_by: [orders_order_by!], $where: orders_bool_exp) {
+  orders(
+    distinct_on: $distinct_on
+    limit: $limit
+    offset: $offset
+    order_by: $order_by
+    where: $where
+  ) {
+    ...orders_orders
+    orderItems_aggregate {
+      aggregate {
+        ...orders_orderItems_aggregate_aggregate
+      }
+    }
+  }
+}
+    ${Orders_OrdersFragmentDoc}
+${Orders_OrderItems_Aggregate_AggregateFragmentDoc}`;
+
+export function useOrdersQuery(options?: Omit<Urql.UseQueryArgs<OrdersQueryVariables>, 'query'>) {
+  return Urql.useQuery<OrdersQuery>({ query: OrdersDocument, ...options });
+};
+export const Orders_By_PkDocument = gql`
+    query orders_by_pk($id: uuid!) {
+  orders_by_pk(id: $id) {
+    ...orders_by_pk_orders
+    orderItems {
+      ...orders_by_pk_orderItems
+      products {
+        ...orders_by_pk_orderItems_products
+      }
+    }
+    customers {
+      ...orders_by_pk_customers
+    }
+  }
+}
+    ${Orders_By_Pk_OrdersFragmentDoc}
+${Orders_By_Pk_OrderItemsFragmentDoc}
+${Orders_By_Pk_OrderItems_ProductsFragmentDoc}
+${Orders_By_Pk_CustomersFragmentDoc}`;
+
+export function useOrders_By_PkQuery(options: Omit<Urql.UseQueryArgs<Orders_By_PkQueryVariables>, 'query'>) {
+  return Urql.useQuery<Orders_By_PkQuery>({ query: Orders_By_PkDocument, ...options });
+};
+export const Delete_OrdersDocument = gql`
+    mutation delete_orders($where: orders_bool_exp!) {
+  delete_orders(where: $where) {
+    ...delete_orders_orders_mutation_response
+  }
+}
+    ${Delete_Orders_Orders_Mutation_ResponseFragmentDoc}`;
+
+export function useDelete_OrdersMutation() {
+  return Urql.useMutation<Delete_OrdersMutation, Delete_OrdersMutationVariables>(Delete_OrdersDocument);
+};
+export const Delete_Orders_By_PkDocument = gql`
+    mutation delete_orders_by_pk($id: uuid!) {
+  delete_orders_by_pk(id: $id) {
+    ...delete_orders_by_pk_orders
+  }
+}
+    ${Delete_Orders_By_Pk_OrdersFragmentDoc}`;
+
+export function useDelete_Orders_By_PkMutation() {
+  return Urql.useMutation<Delete_Orders_By_PkMutation, Delete_Orders_By_PkMutationVariables>(Delete_Orders_By_PkDocument);
+};
+export const Insert_OrdersDocument = gql`
+    mutation insert_orders($orders: [orders_insert_input!]!, $on_conflict: orders_on_conflict) {
+  insert_orders(objects: $orders, on_conflict: $on_conflict) {
+    ...insert_orders_orders_mutation_response
+  }
+}
+    ${Insert_Orders_Orders_Mutation_ResponseFragmentDoc}`;
+
+export function useInsert_OrdersMutation() {
+  return Urql.useMutation<Insert_OrdersMutation, Insert_OrdersMutationVariables>(Insert_OrdersDocument);
+};
+export const Insert_Orders_OneDocument = gql`
+    mutation insert_orders_one($orders: orders_insert_input!, $on_conflict: orders_on_conflict) {
+  insert_orders_one(object: $orders, on_conflict: $on_conflict) {
+    ...insert_orders_one_orders
+  }
+}
+    ${Insert_Orders_One_OrdersFragmentDoc}`;
+
+export function useInsert_Orders_OneMutation() {
+  return Urql.useMutation<Insert_Orders_OneMutation, Insert_Orders_OneMutationVariables>(Insert_Orders_OneDocument);
+};
+export const Update_OrdersDocument = gql`
+    mutation update_orders($orders: orders_set_input, $where: orders_bool_exp!) {
+  update_orders(_set: $orders, where: $where) {
+    ...update_orders_orders_mutation_response
+  }
+}
+    ${Update_Orders_Orders_Mutation_ResponseFragmentDoc}`;
+
+export function useUpdate_OrdersMutation() {
+  return Urql.useMutation<Update_OrdersMutation, Update_OrdersMutationVariables>(Update_OrdersDocument);
+};
+export const Update_Orders_By_PkDocument = gql`
+    mutation update_orders_by_pk($orders: orders_set_input, $pk_columns: orders_pk_columns_input!) {
+  update_orders_by_pk(_set: $orders, pk_columns: $pk_columns) {
+    ...update_orders_by_pk_orders
+  }
+}
+    ${Update_Orders_By_Pk_OrdersFragmentDoc}`;
+
+export function useUpdate_Orders_By_PkMutation() {
+  return Urql.useMutation<Update_Orders_By_PkMutation, Update_Orders_By_PkMutationVariables>(Update_Orders_By_PkDocument);
+};
 export const OrderItemsDocument = gql`
     query orderItems($distinct_on: [orderItems_select_column!], $limit: Int, $offset: Int, $order_by: [orderItems_order_by!], $where: orderItems_bool_exp) {
   orderItems(
@@ -2970,114 +3245,6 @@ export const Update_OrderItems_By_PkDocument = gql`
 
 export function useUpdate_OrderItems_By_PkMutation() {
   return Urql.useMutation<Update_OrderItems_By_PkMutation, Update_OrderItems_By_PkMutationVariables>(Update_OrderItems_By_PkDocument);
-};
-export const OrdersDocument = gql`
-    query orders($distinct_on: [orders_select_column!], $limit: Int, $offset: Int, $order_by: [orders_order_by!], $where: orders_bool_exp) {
-  orders(
-    distinct_on: $distinct_on
-    limit: $limit
-    offset: $offset
-    order_by: $order_by
-    where: $where
-  ) {
-    ...orders_orders
-    orderItems_aggregate {
-      aggregate {
-        ...orders_orderItems_aggregate_aggregate
-      }
-    }
-  }
-}
-    ${Orders_OrdersFragmentDoc}
-${Orders_OrderItems_Aggregate_AggregateFragmentDoc}`;
-
-export function useOrdersQuery(options?: Omit<Urql.UseQueryArgs<OrdersQueryVariables>, 'query'>) {
-  return Urql.useQuery<OrdersQuery>({ query: OrdersDocument, ...options });
-};
-export const Orders_By_PkDocument = gql`
-    query orders_by_pk($id: uuid!) {
-  orders_by_pk(id: $id) {
-    ...orders_by_pk_orders
-    orderItems {
-      ...orders_by_pk_orderItems
-      products {
-        ...orders_by_pk_orderItems_products
-      }
-    }
-  }
-}
-    ${Orders_By_Pk_OrdersFragmentDoc}
-${Orders_By_Pk_OrderItemsFragmentDoc}
-${Orders_By_Pk_OrderItems_ProductsFragmentDoc}`;
-
-export function useOrders_By_PkQuery(options: Omit<Urql.UseQueryArgs<Orders_By_PkQueryVariables>, 'query'>) {
-  return Urql.useQuery<Orders_By_PkQuery>({ query: Orders_By_PkDocument, ...options });
-};
-export const Delete_OrdersDocument = gql`
-    mutation delete_orders($where: orders_bool_exp!) {
-  delete_orders(where: $where) {
-    ...delete_orders_orders_mutation_response
-  }
-}
-    ${Delete_Orders_Orders_Mutation_ResponseFragmentDoc}`;
-
-export function useDelete_OrdersMutation() {
-  return Urql.useMutation<Delete_OrdersMutation, Delete_OrdersMutationVariables>(Delete_OrdersDocument);
-};
-export const Delete_Orders_By_PkDocument = gql`
-    mutation delete_orders_by_pk($id: uuid!) {
-  delete_orders_by_pk(id: $id) {
-    ...delete_orders_by_pk_orders
-  }
-}
-    ${Delete_Orders_By_Pk_OrdersFragmentDoc}`;
-
-export function useDelete_Orders_By_PkMutation() {
-  return Urql.useMutation<Delete_Orders_By_PkMutation, Delete_Orders_By_PkMutationVariables>(Delete_Orders_By_PkDocument);
-};
-export const Insert_OrdersDocument = gql`
-    mutation insert_orders($orders: [orders_insert_input!]!, $on_conflict: orders_on_conflict) {
-  insert_orders(objects: $orders, on_conflict: $on_conflict) {
-    ...insert_orders_orders_mutation_response
-  }
-}
-    ${Insert_Orders_Orders_Mutation_ResponseFragmentDoc}`;
-
-export function useInsert_OrdersMutation() {
-  return Urql.useMutation<Insert_OrdersMutation, Insert_OrdersMutationVariables>(Insert_OrdersDocument);
-};
-export const Insert_Orders_OneDocument = gql`
-    mutation insert_orders_one($orders: orders_insert_input!, $on_conflict: orders_on_conflict) {
-  insert_orders_one(object: $orders, on_conflict: $on_conflict) {
-    ...insert_orders_one_orders
-  }
-}
-    ${Insert_Orders_One_OrdersFragmentDoc}`;
-
-export function useInsert_Orders_OneMutation() {
-  return Urql.useMutation<Insert_Orders_OneMutation, Insert_Orders_OneMutationVariables>(Insert_Orders_OneDocument);
-};
-export const Update_OrdersDocument = gql`
-    mutation update_orders($orders: orders_set_input, $where: orders_bool_exp!) {
-  update_orders(_set: $orders, where: $where) {
-    ...update_orders_orders_mutation_response
-  }
-}
-    ${Update_Orders_Orders_Mutation_ResponseFragmentDoc}`;
-
-export function useUpdate_OrdersMutation() {
-  return Urql.useMutation<Update_OrdersMutation, Update_OrdersMutationVariables>(Update_OrdersDocument);
-};
-export const Update_Orders_By_PkDocument = gql`
-    mutation update_orders_by_pk($orders: orders_set_input, $pk_columns: orders_pk_columns_input!) {
-  update_orders_by_pk(_set: $orders, pk_columns: $pk_columns) {
-    ...update_orders_by_pk_orders
-  }
-}
-    ${Update_Orders_By_Pk_OrdersFragmentDoc}`;
-
-export function useUpdate_Orders_By_PkMutation() {
-  return Urql.useMutation<Update_Orders_By_PkMutation, Update_Orders_By_PkMutationVariables>(Update_Orders_By_PkDocument);
 };
 export const CustomersDocument = gql`
     query customers($distinct_on: [customers_select_column!], $limit: Int, $offset: Int, $order_by: [customers_order_by!], $where: customers_bool_exp) {

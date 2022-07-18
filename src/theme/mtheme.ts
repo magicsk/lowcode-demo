@@ -181,7 +181,7 @@ const components: Components<Theme> = {
   MuiTableHead: {
     styleOverrides: {
       root: {
-        background: '#f5f3f2',
+        background: '#F2F3F4',
         border: 'none',
         fontWeight: 550,
         fontSize: '14px',
