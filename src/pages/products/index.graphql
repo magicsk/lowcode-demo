@@ -120,7 +120,6 @@ fragment update_products_by_pk_products on products {
 }
 
 fragment products_by_pk_orderItems on orderItems {
-  name
   id
   quantity
   price

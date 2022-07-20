@@ -18,14 +18,14 @@ query orders($distinct_on: [orders_select_column!], $limit: Int, $offset: Int, $
 query orders_by_pk($id: uuid!) {
   orders_by_pk(id: $id) {
     ...orders_by_pk_orders
+    customers {
+      ...orders_by_pk_customers
+    }
     orderItems {
-      ...orders_by_pk_orderItems
       products {
         ...orders_by_pk_orderItems_products
       }
-    }
-    customers {
-      ...orders_by_pk_customers
+      ...orders_by_pk_orderItems
     }
   }
 }
@@ -126,15 +126,16 @@ fragment update_orders_by_pk_orders on orders {
 }
 
 fragment orders_by_pk_orderItems on orderItems {
-  name
   id
   quantity
   price
 }
 
 fragment orders_by_pk_orderItems_products on products {
+  name
   quantity
   id
+  price
 }
 
 fragment orders_orderItems_aggregate_aggregate on orderItems_aggregate_fields {

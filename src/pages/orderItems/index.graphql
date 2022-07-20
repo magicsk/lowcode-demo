@@ -7,6 +7,11 @@ query orderItems($distinct_on: [orderItems_select_column!], $limit: Int, $offset
     where: $where
   ) {
     ...orderItems_orderItems
+    products {
+      ...orderItems_products
+    }
+    quantity
+    price
   }
 }
 
@@ -60,14 +65,10 @@ mutation update_orderItems_by_pk($_inc: orderItems_inc_input, $orderItems: order
 
 fragment orderItems_orderItems on orderItems {
   id
-  name
-  quantity
-  price
 }
 
 fragment orderItems_by_pk_orderItems on orderItems {
   id
-  name
   quantity
   price
 }
@@ -75,7 +76,6 @@ fragment orderItems_by_pk_orderItems on orderItems {
 fragment delete_orderItems_orderItems_mutation_response on orderItems_mutation_response {
   returning {
     id
-    name
     ordersId
     price
     productId
@@ -85,13 +85,11 @@ fragment delete_orderItems_orderItems_mutation_response on orderItems_mutation_r
 
 fragment delete_orderItems_by_pk_orderItems on orderItems {
   id
-  name
 }
 
 fragment insert_orderItems_orderItems_mutation_response on orderItems_mutation_response {
   returning {
     id
-    name
     ordersId
     price
     productId
@@ -101,13 +99,11 @@ fragment insert_orderItems_orderItems_mutation_response on orderItems_mutation_r
 
 fragment insert_orderItems_one_orderItems on orderItems {
   id
-  name
 }
 
 fragment update_orderItems_orderItems_mutation_response on orderItems_mutation_response {
   returning {
     id
-    name
     ordersId
     price
     productId
@@ -117,12 +113,13 @@ fragment update_orderItems_orderItems_mutation_response on orderItems_mutation_r
 
 fragment update_orderItems_by_pk_orderItems on orderItems {
   id
-  name
 }
 
 fragment orderItems_by_pk_products on products {
   quantity
   id
+  name
+  price
 }
 
 fragment orderItems_by_pk_orders on orders {
@@ -130,4 +127,9 @@ fragment orderItems_by_pk_orders on orders {
   id
   orderDate
   shippedDate
+}
+
+fragment orderItems_products on products {
+  name
+  id
 }

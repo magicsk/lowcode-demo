@@ -24,5 +24,6 @@
   "products.quantity": "Quantity in warehouse",
   "aggregate.count": "Items",
   "orders.orderItems_aggregate.aggregate.count": "Items",
-  "products.orderItems_aggregate.aggregate.count": "Number of orders"
+  "products.orderItems_aggregate.aggregate.count": "Number of orders",
+  "products.price": "Price per unit"
 }
