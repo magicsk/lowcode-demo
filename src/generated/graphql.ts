@@ -1898,9 +1898,12 @@ export enum Status_Types_Constraint {
 }
 
 export enum Status_Types_Enum {
+  Confirmed = 'Confirmed',
+  Processing = 'Processing',
+  Shipped = 'Shipped',
   Delivered = 'Delivered',
-  Paid = 'Paid',
-  Shipped = 'Shipped'
+  Refounded = 'Refounded',
+  Cancelled = 'Cancelled'
 }
 
 /** Boolean expression to compare columns of type "status_types_enum". All fields are combined with logical 'AND'. */

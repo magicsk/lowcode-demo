@@ -12019,19 +12019,37 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "Delivered",
+            "name": "Confirmed",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "Paid",
+            "name": "Processing",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "Shipped",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "Delivered",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "Refounded",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "Cancelled",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
