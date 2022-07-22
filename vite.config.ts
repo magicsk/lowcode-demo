@@ -8,14 +8,14 @@ export default ({ command, mode }) => {
   return defineConfig({
     optimizeDeps: {
       exclude: ['@iteria-app/wysiwyg'],
-      include: ['@iteria-app/component-templates'],
+      include: ['@iteria-app/component-templates']
     },
     resolve: {
       alias: {
         os: 'os-browserify',
         path: 'path-browserify',
-        module: path.resolve(__dirname, './src/constants.ts'),
-      },
+        module: path.resolve(__dirname, './src/constants.ts')
+      }
     },
     plugins: [
       react(),
@@ -33,11 +33,17 @@ export default ({ command, mode }) => {
           translations: true,
           themeEditor: true,
           graphQLEndpoint: true,
-          floatingButton: true,
+          floatingButton: true
         },
-        version: "1.4.9",
-        whitelistedEnvs: ['VITE_HASURA_GRAPHQL_ENDPOINT', 'VITE_HASURA_GRAPHQL_SECRET', 'VITE_BRANCH', 'VITE_REPOSITORY_URL', 'VITE_SITE_ID', 'VITE_NETLIFY']
-      }),
-    ],
+        whitelistedEnvs: [
+          'VITE_HASURA_GRAPHQL_ENDPOINT',
+          'VITE_HASURA_GRAPHQL_SECRET',
+          'VITE_BRANCH',
+          'VITE_REPOSITORY_URL',
+          'VITE_SITE_ID',
+          'VITE_NETLIFY'
+        ]
+      })
+    ]
   })
 }
